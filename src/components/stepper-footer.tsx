@@ -41,9 +41,7 @@ export function StepperFooter() {
           Prev
         </button>
         {isLastStep ? (
-          <button type="submit" className="bg-gray-100 hover:text-white hover:bg-rose-500 hover:border-rose-300 hover:shadow-rose-300 ease-in-out duration-300 "  >
-            Generate!
-          </button>
+     <></> 
         ) : (
           <button type="button" onClick={() => nextStep()} disabled={isLoading}>
             Next

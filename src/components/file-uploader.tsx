@@ -47,7 +47,7 @@ export const FileUploader: React.FC<Props> = memo(({ stepNum, formData, setFormD
       </>
         }
       </div>
-     
+
     </section>
    );
 });

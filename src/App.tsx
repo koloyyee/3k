@@ -34,6 +34,10 @@ function App() {
     resume: null,
   });
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    console.log({formData})
+  }
   return (
     <main>
       <h1 className="text-4xl">
@@ -41,7 +45,7 @@ function App() {
         <br />
         Let Us Help You to Draft the Cover Letter
       </h1>
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <Wizard footer={<StepperFooter />}>
           <FileUploader stepNum={1} formData={formData} setFormData={setFormData}/>
           {/* {formData.resume !== null ? formData.resume.name : ""} */}

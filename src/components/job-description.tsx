@@ -29,6 +29,12 @@ export  const JobDescription: React.FC<Props> = memo(({stepNumber, formData, set
       <input  className={inputStyle}  type="text" id="title" name="title"  onChange={(e)=> handleChange(e)} />
       <label className={labeStyle("orange")} htmlFor="description">Job Description</label>
       <textarea  className={baseStyle}  name="description" id="description" cols="30" rows="10"  onChange={(e)=> handleChange(e)}></textarea>
+      <button
+            type="submit"
+            className="bg-gray-100 hover:text-white hover:bg-rose-500 hover:border-rose-300 hover:shadow-rose-300 ease-in-out duration-300 "
+          >
+            Generate!
+          </button>
     </div>
   );
 })
