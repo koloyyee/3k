@@ -10,21 +10,22 @@ export const JobDescription: React.FC<Props> = memo(
 
     handleStep(() => {});
 
-    function handleChange(e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
+    function handleChange(
+      e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+    ) {
       const { name, value } = e.target;
       setFormData({
         ...formData,
         [name]: value,
       });
     }
- 
 
     const btnStyle = (formData: Form) =>
       isValid(formData)
-        ? "bg-gray-100 dark:bg-gray-500 dark:text-gray-300 hover:text-white hover:bg-rose-500 hover:border-rose-300 hover:shadow-rose-300 ease-in-out duration-300"
-        : "bg-gray-100  dark:bg-gray-500 dark:text-gray-300 cursor-not-allowed";
+        ? "my-3 bg-gray-100 dark:bg-gray-500 dark:text-gray-300 hover:text-white hover:bg-rose-500 hover:border-rose-300 hover:shadow-rose-300 ease-in-out duration-300"
+        : "my-3 bg-gray-100  dark:bg-gray-500 dark:text-gray-300 cursor-not-allowed";
     const baseStyle =
-      "border-slate-500 border-[0.5px] focus:border-none focus:ring-blue-500 focus:ring-2 focus f:shadow-blue-200 focus:shadow-lg ease-in-out duration-300  rounded-lg p-3";
+      "border-slate-500 border-[0.5px] focus:border-none focus:ring-blue-500 focus:ring-2 focus f:shadow-blue-200 focus:shadow-lg ease-in-out duration-300  rounded-lg p-3 hover:border-blue-400 hover:ring-blue-200 hover:ring-2 hover:shadow-lg hover:shadow-blue-200";
     const inputStyle = baseStyle + " text-center";
 
     return (
