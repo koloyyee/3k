@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useCopy } from "../util/use-copy-hook";
+import { ToastContainer, toast } from "react-toastify";
 
 export function Response({ response }: { response: string }) {
   const [_, copy] = useCopy();
   const [draft, setDraft] = useState<string>("");
 
   function onCopy() {
-    alert("Copied to clipboard!");
     copy(draft);
+    toast.success("Copied to clipboard!");
   }
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setDraft(e.target.value);
@@ -37,9 +38,8 @@ export function Response({ response }: { response: string }) {
         >
           Copy
         </button>
-
-    
       </div>
+      <ToastContainer position="top-center"/>
     </div>
   );
 }
