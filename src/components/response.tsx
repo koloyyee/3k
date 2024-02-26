@@ -1,10 +1,45 @@
+import { useState } from "react";
+import { useCopy } from "../util/use-copy-hook";
 
-export function Response({ response}: {response: string}) {
-  
+export function Response({ response }: { response: string }) {
+  const [_, copy] = useCopy();
+  const [draft, setDraft] = useState<string>("");
+
+  function onCopy() {
+    alert("Copied to clipboard!");
+    copy(draft);
+  }
+  function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setDraft(e.target.value);
+  }
+  function exit() {
+    window.opener = null;
+    window.open("", "_self");
+    window.close();
+  }
+
   return (
-    <textarea className="border-[1px] border-gray-300 rounded-md p-3 m-0" defaultValue={response} rows={100} cols={100}>
-    </textarea>
+    <div className="flex flex-col h-screen items-center gap-5">
+      <textarea
+        className="border-[1px] border-gray-300 rounded-md p-3 m-0 h-[70vh]"
+        defaultValue={response}
+        onChange={(e) => handleChange(e)}
+        rows={50}
+        cols={100}
+      ></textarea>
+      <div className="flex gap-5">
+      <button onClick={exit} className="bg-red-500 text-white p-3 rounded-md">
+          Close the Window
+        </button>
+        <button
+          onClick={onCopy}
+          className="bg-purple-500 text-white p-3 rounded-md"
+        >
+          Copy
+        </button>
 
+    
+      </div>
+    </div>
   );
-  
 }
