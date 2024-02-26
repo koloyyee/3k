@@ -7,6 +7,7 @@ import { JobDescription } from "./components/job-description";
 import { isValid } from "./util/formValidation";
 import { Form } from "./types/interfaces";
 import { Resume } from "./apis/Resume";
+import { Response } from "./components/response";
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -75,9 +76,7 @@ function App() {
         </Wizard>
       </form>
       :
-          <>
-            {draftResp}
-          </>
+      <Response response={draftResp} />
       }
       <ToastContainer position="bottom-center"/>
     </main>

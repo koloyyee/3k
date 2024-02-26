@@ -17,7 +17,7 @@ export class Resume {
   }
 
   async post() {
-
+    console.log(this.#endpoint + "/upload/pdf");
     return fetch(this.#endpoint + "/upload/pdf", {
       method: "POST",
       body: this.#body,
