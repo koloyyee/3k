@@ -8,7 +8,7 @@ export const JobDescription: React.FC<Props> = memo(
   ({ stepNumber, formData, setFormData }) => {
     const { isLoading, handleStep } = useWizard();
 
-    handleStep(() => {});
+    handleStep(() => { });
 
     function handleChange(
       e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -41,6 +41,7 @@ export const JobDescription: React.FC<Props> = memo(
           type="text"
           id="company"
           name="company"
+          defaultValue={formData.company}
           onChange={(e) => handleChange(e)}
           required
         />
@@ -55,6 +56,7 @@ export const JobDescription: React.FC<Props> = memo(
           type="text"
           id="title"
           name="title"
+          defaultValue={formData.title}
           onChange={(e) => handleChange(e)}
           required
         />
@@ -68,6 +70,7 @@ export const JobDescription: React.FC<Props> = memo(
           className={baseStyle}
           name="description"
           id="description"
+          defaultValue={formData.description}
           cols={30}
           rows={10}
           onChange={(e) => handleChange(e)}

@@ -16,15 +16,23 @@ export class Resume {
     return this.#endpoint;
   }
 
-  async post() {
-    console.log(this.#endpoint + "/upload/pdf");
+  async post() : Promise<string | Error> {
     return fetch(this.#endpoint + "/upload/pdf", {
       method: "POST",
       body: this.#body,
     })
-      .then(response => response.text())
+      .then(response => {
+        if (response.status !== 200) {
+          throw new Error("something went wrong" );
+        } else {
+          return response.text();
+        }
+      })
       .then(data => data)
-      .catch(error => console.warn(error))
+      .catch(error => {
+        console.warn(error);
+      throw new Error(error);
+      })
   }
 
 }
