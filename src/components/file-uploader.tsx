@@ -20,7 +20,7 @@ export function FileUploader() {
     formState: { errors },
   } = useForm({ defaultValues: state, mode: "onSubmit" });
   const navigate = useNavigate();
-  const watchFile = watch("file");
+  const watchFile = watch("resume");
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -30,7 +30,7 @@ export function FileUploader() {
     },
     onDrop: (files) => {
       console.log(files[0])
-      setState({...state, file: files[0]})
+      setState({...state, resume: files[0]})
     },
     maxFiles: 1,
   });
@@ -72,8 +72,8 @@ export function FileUploader() {
           )}
         
       </div>
-      <p>{JSON.stringify(state?.file)}</p>
-      <Button disabled={!state?.file} className={state?.file?.path ?  "w-1/3 self-center mt-3": " w-1/3 self-center mt-3 cursor-not-allowed"  }> Next {">"}</Button>
+      <p>{JSON.stringify(state?.resume)}</p>
+      <Button disabled={!state?.resume} className={state?.resume?.path ?  "w-1/3 self-center mt-3": " w-1/3 self-center mt-3 cursor-not-allowed"  }> Next {">"}</Button>
     </Form>
   );
 }
