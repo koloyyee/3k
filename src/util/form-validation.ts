@@ -1,4 +1,4 @@
-import { Form } from "../App";
+import { Form } from "../OldApp";
 
 /**
  * Check if all the form has been filled.

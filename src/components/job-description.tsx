@@ -1,89 +1,86 @@
-import { ChangeEvent, memo } from "react";
-import { useWizard } from "react-use-wizard";
-import { isValid } from "../util/formValidation";
-import { Props } from "../types/types";
-import { Form } from "../types/interfaces";
+import { useAppState } from "../util/state";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { Field } from "./form/fields";
+import { Input } from "./form/input";
+import { Form} from "./form/form";
+import { Textarea } from "./form/textarea";
+import { Button } from "./form/button";
+import { useState } from "react";
+import { Resume } from "../apis/Resume";
+import { toast } from "react-toastify";
 
-export const JobDescription: React.FC<Props> = memo(
-  ({ stepNumber, formData, setFormData }) => {
-    const { isLoading, handleStep } = useWizard();
+export function JobDescription (){
+  const [submitting, setSubmitting] = useState(false);
+  const [state, setState] = useAppState();
+  const { handleSubmit, register } = useForm({ defaultValues: state });
+  const navigate = useNavigate();
 
-    handleStep(() => { });
+  async function saveData(data) {
+    setState({...state, ...data});
+    console.log({...state, ...data})
 
-    function handleChange(
-      e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-    ) {
-      const { name, value } = e.target;
-      setFormData({
-        ...formData,
-        [name]: value,
-      });
-    }
+      const body = new FormData();
+      body.append("company", data.company);
+      body.append("title", data.title);
+      body.append("description", data.description);
+      body.append("resume", data.resume!);
+  
+      setSubmitting(true);
+      const resume = new Resume(body);
+      try {
+      //   const result = await toast.promise(resume.post(), {
+      //     pending: "we are working on it!",
+      //     success: "uploaded and process!",
+      //     error: "Something went, please try again",
+      //   });
+      //   if (typeof result == "string") {
+      //         /** post the body */
+      //       }
+      const result ="testing"
+            navigate("/response", {state: {result}});
 
-    const btnStyle = (formData: Form) =>
-      isValid(formData)
-        ? "my-3 bg-gray-100 dark:bg-gray-500 dark:text-gray-300 hover:text-white hover:bg-rose-500 hover:border-rose-300 hover:shadow-rose-300 ease-in-out duration-300"
-        : "my-3 bg-gray-100  dark:bg-gray-500 dark:text-gray-300 cursor-not-allowed";
-    const baseStyle =
-      "border-slate-500 border-[0.5px] focus:border-none focus:ring-blue-500 focus:ring-2 focus f:shadow-blue-200 focus:shadow-lg ease-in-out duration-300  rounded-lg p-3 hover:border-blue-400 hover:ring-blue-200 hover:ring-2 hover:shadow-lg hover:shadow-blue-200";
-    const inputStyle = baseStyle + " text-center";
+      } catch (error) {
+        console.error(error)
+      }
+    
 
-    return (
-      <div className="flex flex-col mt-5">
-        <label
-          className="text-xl font-semibold underline my-2 decoration-orange-400 decoration-4"
-          htmlFor="company"
-        >
-          Company Name
-        </label>
-        <input
-          className={inputStyle}
-          type="text"
-          id="company"
-          name="company"
-          defaultValue={formData.company}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-        <label
-          className="text-xl font-semibold underline my-2 decoration-blue-200 decoration-4"
-          htmlFor="title"
-        >
-          Job Title
-        </label>
-        <input
-          className={inputStyle}
-          type="text"
-          id="title"
-          name="title"
-          defaultValue={formData.title}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-        <label
-          className=" text-xl font-semibold underline my-2 decoration-purple-200 decoration-4"
-          htmlFor="description"
-        >
-          Job Description
-        </label>
-        <textarea
-          className={baseStyle}
-          name="description"
-          id="description"
-          defaultValue={formData.description}
-          cols={30}
-          rows={10}
-          onChange={(e) => handleChange(e)}
-          required
-        ></textarea>
-        <button
-          type="submit"
-          className={btnStyle(formData)}
-          disabled={!isValid(formData)}
-        >
-          Generate!
-        </button>
-      </div>
-    );
   }
-);
+    const labelStyle = "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4"
+    return (
+
+      <Form onSubmit={handleSubmit(saveData)}  >
+        <Field
+          label="Company Name"
+          labelClass={labelStyle}  error={undefined}>
+            <Input
+            {...register("company")} 
+            id="company"
+            />
+        </Field>
+          <Field
+          label="Job Title"
+          labelClass={labelStyle} error={undefined}>
+            <Input
+            {...register("title")} 
+            id="title"
+            />
+        </Field>
+        <Field
+          label="Job Description"
+          labelClass={labelStyle} error={undefined}>
+            <Textarea
+            {...register("description")} 
+            id="description"
+            />
+        </Field>
+       
+        <div className="flex gap-5 justify-center items-center self-center">
+          <Link className={`btn btn-secondary`} to="/">
+            {"Back"} 
+          </Link>
+          <Button> {"Generate!"}</Button>
+        </div>
+      </Form>
+    );
+  };
