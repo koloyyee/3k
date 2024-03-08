@@ -18,37 +18,37 @@ export function JobDescription() {
 
   async function saveData(data) {
     setState({ ...state, ...data });
-    console.log({ ...state, ...data });
-
     const body = new FormData();
     body.append("company", data.company);
     body.append("title", data.title);
     body.append("description", data.description);
     body.append("resume", data.resume!);
 
-    for(const [k, v] of body.entries()){
-      console.log({k,v})
-    }
-
     setSubmitting(true);
+    console.log(submitting)
     const resume = new Resume(body);
     try {
-      const result = await toast.promise(resume.post(), {
-        pending: "we are working on it!",
-        success: "uploaded and process!",
-        error: "Something went, please try again",
-      });
+      // const result = await toast.promise(resume.post(), {
+      //   pending: "we are working on it!",
+      //   success: "uploaded and process!",
+      //   error: "Something went, please try again",
+      // });
+      const result = await resume.post();
       if (typeof result == "string") {
         /** post the body */
         // const result ="testing"
-        navigate("/response", { state: { result } });
+        console.log(submitting) 
+        navigate("/response", { state: { result, data: {...state} } });
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      console.log(submitting)
+      setSubmitting(false)
     }
   }
   const labelStyle =
-    "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4";
+    "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4 ";
   return (
     <Form onSubmit={handleSubmit(saveData)}>
       <Field label="Company Name" labelClass={labelStyle} error={undefined}>

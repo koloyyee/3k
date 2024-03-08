@@ -1,8 +1,6 @@
 import { useDropzone } from "react-dropzone";
 import { useAppState } from "../util/state";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "./form/input";
-import { Field } from "./form/fields";
+import { useForm } from "react-hook-form";
 import { Form } from "./form/form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./form/button";
@@ -29,27 +27,17 @@ export function FileUploader() {
         [],
     },
     onDrop: (files) => {
-      console.log(files[0])
-      setState({...state, resume: files[0]})
+      console.log(files[0]);
+      setState({ ...state, resume: files[0] });
     },
-    maxFiles: 1,
+    // maxFiles: 1,
   });
 
   function saveData() {
     navigate("/job_description");
   }
   return (
-    <Form  onSubmit={handleSubmit(saveData)}>
-      {/* <Field
-        label="Upload Your Resume"
-        labelClass="block my-10 text-xl font-semibold underline decoration-green-300 decoration-4"
-        error={errors?.file}
-      >
-        <Input
-          {...register("file", { required: "File cannot be empty" }, "")}
-          id="file"
-        />
-      </Field> */}
+    <Form onSubmit={handleSubmit(saveData)}>
       <label
         className="block my-10 text-xl font-semibold underline decoration-green-300 decoration-4"
         htmlFor="resume"
@@ -59,21 +47,29 @@ export function FileUploader() {
       <div
         {...getRootProps({
           className:
-            "rounded-lg border-dotted border-[2px] hover:border-dotted hover:border-blue-400 hover:ring-blue-200 hover:ring-2 hover:shadow-lg hover:shadow-blue-200 ease-in-out duration-300 min-h-96 flex flex-col justify-center items-center",
+            " rounded-lg border-dotted border-[2px] hover:border-dotted hover:border-blue-400 hover:ring-blue-200 hover:ring-2 hover:shadow-lg hover:shadow-blue-200 ease-in-out duration-300 min-h-96 flex flex-col justify-center items-center",
         })}
       >
-        {state.resume ? (
+        <>
+          <input {...getInputProps()} />
+          {state.resume ? (
             <p>{state.resume?.name}</p>
           ) : (
-            <>
-              <input {...getInputProps()} />
-              <p>Drag 'n' drop some files here, or click to select files</p>
-            </>
+            <p>Drag 'n' drop some files here, or click to select files</p>
           )}
-        
+        </>
       </div>
-      <p>{JSON.stringify(state?.resume)}</p>
-      <Button disabled={!state?.resume} className={state?.resume?.path ?  "w-1/3 self-center mt-3": " w-1/3 self-center mt-3 cursor-not-allowed"  }> Next {">"}</Button>
+      <Button
+        disabled={!state?.resume}
+        className={
+          state?.resume?.path
+            ? "w-1/3 self-center mt-3"
+            : " w-1/3 self-center mt-3 cursor-not-allowed"
+        }
+      >
+        {" "}
+        Next {">"}
+      </Button>
     </Form>
   );
 }

@@ -2,19 +2,44 @@ import { useState } from "react";
 import { useCopy } from "../util/use-copy-hook";
 import { ToastContainer, toast } from "react-toastify";
 import { Props } from "../types/types";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Resume } from "../apis/Resume";
 
 export function Response() {
   const [_, copy] = useCopy();
   const { state } = useLocation();
-  const { result } = state;
+  const { result} = state;
   const [draft, setDraft] = useState(result);
+  const [retryCount, setRetryCount] = useState(3);
+  const navigate = useNavigate();
 
   function onCopy() {
     copy(draft);
     console.log(draft);
     toast.success("Copied to clipboard!");
   }
+  function retry() {
+    // console.log({data})
+    // const body = new FormData();
+    // body.append("company", data.company);
+    // body.append("title", data.title);
+    // body.append("description", data.description);
+    // body.append("resume", data.resume!);
+
+    // const resume = new Resume(body);
+    // const retryResult = resume.post();
+   
+    // try{
+    //   if (typeof result == "string") {
+    //     /** post the body */
+    //     setRetryCount(retryCount - 1)
+    //     navigate("/response", { state: { result : retryResult, data: {...data} } });
+    //   }
+    // } catch(error) {
+    //   console.error(error);
+    // }
+  }
+
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setDraft(e.target.value);
   }
@@ -27,12 +52,12 @@ export function Response() {
         // rows={40}
       ></textarea>
       <div className="flex justify-center items-center gap-5">
-        {/* <button
-              onClick={exit}
+        <button
+              onClick={retry}
               className="bg-red-500 text-white p-3 rounded-md"
             >
-              Close the Window
-            </button> */}
+              Retry ({retryCount})
+            </button>
         <button
           onClick={onCopy}
           className="bg-purple-500 text-white p-3 rounded-md"
