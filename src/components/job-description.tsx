@@ -25,6 +25,11 @@ export function JobDescription() {
     body.append("title", data.title);
     body.append("description", data.description);
     body.append("resume", data.resume!);
+
+    for(const [k, v] of body.entries()){
+      console.log({k,v})
+    }
+
     setSubmitting(true);
     const resume = new Resume(body);
     try {
