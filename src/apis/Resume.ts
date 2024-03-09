@@ -1,3 +1,4 @@
+import { FileType } from "../util/file-type";
 
 export class Resume {
   #endpoint;
@@ -17,7 +18,10 @@ export class Resume {
   }
 
   async post() : Promise<string | Error> {
-    return fetch(this.#endpoint + "/upload/pdf", {
+    const resume = this.getBody.get("resume")
+    const subpath : string = resume.type === FileType.pdf ? "/upload/pdf" : "/upload/docx";
+
+    return fetch(this.#endpoint + subpath, {
       method: "POST",
       body: this.#body,
     })

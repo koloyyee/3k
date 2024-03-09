@@ -1,5 +1,3 @@
-// App.js
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppProvider } from "./util/state";
 import { FileUploader } from "./components/file-uploader";
