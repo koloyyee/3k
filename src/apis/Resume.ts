@@ -1,3 +1,4 @@
+import { Form } from "../types/interfaces";
 import { FileType } from "../util/file-type";
 
 export class Resume {
@@ -18,10 +19,11 @@ export class Resume {
   }
 
   async post() : Promise<string | Error> {
-    const resume = this.getBody.get("resume")
-    const subpath : string = resume.type === FileType.pdf ? "/upload/pdf" : "/upload/docx";
+    const resume = this.getBody.get("resume") as Form['resume'] | null
 
-    return fetch(this.#endpoint + subpath, {
+    const subpath : string = resume!.type === FileType.pdf ? "/upload/pdf" : "/upload/docx";
+
+    return fetch(this.getEndpoint + subpath, {
       method: "POST",
       body: this.#body,
     })

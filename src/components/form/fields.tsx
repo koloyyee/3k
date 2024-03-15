@@ -1,14 +1,22 @@
 import React, { ReactNode } from "react";
-import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+import { FieldError} from "react-hook-form";
+
+type FieldProps = {
+  children: ReactNode;
+  label: string;
+  labelClass: string;
+  error: FieldError | undefined;
+};
 
 export function getChildrenId (children: ReactNode){
-  const child = React.Children.only(children);
-  if("id" in child?.props){
-    return child?.props.id;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const child = React.Children.only(children)as React.ReactElement<any>;
+  if("id" in child.props){
+   return child?.props.id;
   }
 }
 
-export function Field({children, label,labelClass, error}: {children: ReactNode, label: string,labelClass :string, error: FieldError| Merge<FieldError, FieldErrorsImpl<any>> | undefined}) {
+export function Field({children, label,labelClass, error}: FieldProps) {
 
   const id = getChildrenId(children);
   return(

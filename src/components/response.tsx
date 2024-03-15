@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useCopy } from "../util/use-copy-hook";
 import { ToastContainer, toast } from "react-toastify";
-import { Props } from "../types/types";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Resume } from "../apis/Resume";
+import { Link, useLocation } from "react-router-dom";
 
 export function Response() {
   const [_, copy] = useCopy();
@@ -11,7 +9,9 @@ export function Response() {
   const { result} = state;
   const [draft, setDraft] = useState(result);
   const [retryCount, setRetryCount] = useState(3);
-  const navigate = useNavigate();
+  setRetryCount;
+  _;
+//  const navigate = useNavigate();
 
   function onCopy() {
     copy(draft);

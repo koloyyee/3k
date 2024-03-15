@@ -8,7 +8,8 @@ import { Textarea } from "./form/textarea";
 import { Button } from "./form/button";
 import { useState } from "react";
 import { Resume } from "../apis/Resume";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import {Form as FormType} from "../types/interfaces"
 
 export function JobDescription() {
   const [submitting, setSubmitting] = useState(false);
@@ -16,7 +17,7 @@ export function JobDescription() {
   const { handleSubmit, register } = useForm({ defaultValues: state });
   const navigate = useNavigate();
 
-  async function saveData(data) {
+  async function saveData(data : FormType) {
     setState({ ...state, ...data });
     const body = new FormData();
     body.append("company", data.company);

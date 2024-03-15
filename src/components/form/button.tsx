@@ -1,7 +1,13 @@
-import { forwardRef } from "react";
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react";
 
-export const Button = forwardRef(
+type ButtonProps = {
+  children: ReactNode;
+  variant?: string;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant = "primary", ...props }, ref) => {
+    ref;
     return (
       <button className={`btn btn-${variant}`} {...props}>
         {children}
