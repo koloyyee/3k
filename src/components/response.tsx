@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCopy } from "../util/use-copy-hook";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useLocation } from "react-router-dom";
+ import 'react-toastify/dist/ReactToastify.css';
 
 export function Response() {
   const [_, copy] = useCopy();

@@ -29,6 +29,7 @@ export class Resume {
     })
       .then(response => {
         if (response.status !== 200) {
+          console.error(response.text());
           throw new Error("something went wrong" );
         } else {
           return response.text();

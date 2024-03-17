@@ -8,16 +8,20 @@ import { Textarea } from "./form/textarea";
 import { Button } from "./form/button";
 import { useState } from "react";
 import { Resume } from "../apis/Resume";
-// import { toast } from "react-toastify";
-import {Form as FormType} from "../types/interfaces"
+import { Form as FormType } from "../types/interfaces";
+import { Spinner } from "./spinner";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export function JobDescription() {
   const [submitting, setSubmitting] = useState(false);
   const [state, setState] = useAppState();
+
   const { handleSubmit, register } = useForm({ defaultValues: state });
   const navigate = useNavigate();
 
-  async function saveData(data : FormType) {
+
+  async function saveData(data: FormType) {
     setState({ ...state, ...data });
     const body = new FormData();
     body.append("company", data.company);
@@ -26,26 +30,25 @@ export function JobDescription() {
     body.append("resume", data.resume!);
 
     setSubmitting(true);
-    console.log(submitting)
+    console.log(submitting);
     const resume = new Resume(body);
     try {
-      // const result = await toast.promise(resume.post(), {
-      //   pending: "we are working on it!",
-      //   success: "uploaded and process!",
-      //   error: "Something went, please try again",
-      // });
-      const result = await resume.post();
+      const result = await toast.promise(resume.post(), {
+        pending: "we are working on it!",
+        success: "uploaded and process!",
+        error: "Something went, please try again",
+      });
       if (typeof result == "string") {
         /** post the body */
         // const result ="testing"
-        console.log(submitting) 
-        navigate("/response", { state: { result, data: {...state} } });
+        console.log(submitting);
+        navigate("/response", { state: { result, data: { ...state } } });
       }
     } catch (error) {
       console.error(error);
     } finally {
-      console.log(submitting)
-      setSubmitting(false)
+      console.log(submitting);
+      setSubmitting(false);
     }
   }
   const labelStyle =
@@ -53,21 +56,28 @@ export function JobDescription() {
   return (
     <Form onSubmit={handleSubmit(saveData)}>
       <Field label="Company Name" labelClass={labelStyle} error={undefined}>
-        <Input {...register("company")} id="company" />
+        <Input {...register("company")} id="company" disabled={ submitting} />
       </Field>
       <Field label="Job Title" labelClass={labelStyle} error={undefined}>
-        <Input {...register("title")} id="title" />
+        <Input {...register("title")} id="title"  disabled={ submitting} />
       </Field>
       <Field label="Job Description" labelClass={labelStyle} error={undefined}>
-        <Textarea {...register("description")} id="description" />
+        <Textarea {...register("description")} id="description"  disabled={ submitting} />
       </Field>
 
       <div className="flex gap-5 justify-center items-center self-center">
-        <Link className={`btn btn-secondary`} to="/">
-          {"Back"}
-        </Link>
-        <Button> {"Generate!"}</Button>
+        {submitting ? (
+          <Spinner />
+        ) : (
+          <>
+            <Link className={`btn btn-secondary`} to="/">
+              {"Back"}
+            </Link>
+            <Button> {"Generate!"}</Button>
+          </>
+        )}
       </div>
+      <ToastContainer position="top-center" />
     </Form>
   );
 }
