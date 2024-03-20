@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCopy } from "../util/use-copy-hook";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,8 +9,8 @@ export function Response() {
   const { state } = useLocation();
   const { result } = state;
   const [draft, setDraft] = useState(result);
-  const [retryCount, setRetryCount] = useState(3);
-  setRetryCount;
+  // const [retryCount, setRetryCount] = useState(3);
+  //setRetryCount;
   _;
   //  const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ export function Response() {
     console.log(draft);
     toast.success("Copied to clipboard!");
   }
-  function retry() {
+  //function retry() {
     // console.log({data})
     // const body = new FormData();
     // body.append("company", data.company);
@@ -40,7 +40,7 @@ export function Response() {
     //   console.error(error);
     // }
     //
-  }
+  //}
   //<Link className={`btn btn-secondary`} to="/job_description">
   //  {"Back"}
   // </Link>
