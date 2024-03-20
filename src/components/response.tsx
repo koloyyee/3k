@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useCopy } from "../util/use-copy-hook";
-import { ToastContainer, toast } from "react-toastify";
 import { Link, useLocation } from "react-router-dom";
- import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export function Response() {
   const [_, copy] = useCopy();
   const { state } = useLocation();
-  const { result} = state;
+  const { result } = state;
   const [draft, setDraft] = useState(result);
   const [retryCount, setRetryCount] = useState(3);
   setRetryCount;
   _;
-//  const navigate = useNavigate();
+  //  const navigate = useNavigate();
 
   function onCopy() {
     copy(draft);
@@ -29,7 +29,7 @@ export function Response() {
 
     // const resume = new Resume(body);
     // const retryResult = resume.post();
-   
+
     // try{
     //   if (typeof result == "string") {
     //     /** post the body */
@@ -39,7 +39,11 @@ export function Response() {
     // } catch(error) {
     //   console.error(error);
     // }
+    //
   }
+  //<Link className={`btn btn-secondary`} to="/job_description">
+  //  {"Back"}
+  // </Link>
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setDraft(e.target.value);
@@ -50,24 +54,17 @@ export function Response() {
         defaultValue={draft}
         className="border-[1px] border-gray-300 rounded-md p-3 m-0 h-[55vh] w-full"
         onChange={(e) => handleChange(e)}
-        // rows={40}
+      // rows={40}
       ></textarea>
       <div className="flex justify-center items-center gap-5">
-        <button
-              onClick={retry}
-              className="bg-red-500 text-white p-3 rounded-md"
-            >
-              Retry ({retryCount})
-            </button>
+
         <button
           onClick={onCopy}
           className="bg-purple-500 text-white p-3 rounded-md"
         >
           Copy
         </button>
-        <Link className={`btn btn-secondary`} to="/job_description">
-          {"Back"}
-        </Link>
+
       </div>
       <ToastContainer position="top-center" />
     </div>

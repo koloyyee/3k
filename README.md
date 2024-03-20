@@ -19,3 +19,8 @@ that helps job applicants to draft a cover letter.
 3. extract pdf text with the rest of the user inputs -> 
 4. Ask OpenAI/Gemini ->
 5. Server Sent Event push back to React frontend.
+
+## TODO
+- []: Frontend unit test with Jest
+- []: E2E with Playwright
+

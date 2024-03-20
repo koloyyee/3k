@@ -25,8 +25,7 @@ export function FileUploader() {
     getInputProps } = useDropzone({
     accept: {
       "application/pdf": [],
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
-        [],
+     // "application/vnd.openxmlformats-officedocument.wordprocessingml.document":[],
     },
     onDrop: (files) => {
       if(errors) console.log(errors);
@@ -46,6 +45,8 @@ export function FileUploader() {
       >
         Upload Your Resume
       </label>
+      
+      <p className="underline decoration-purple-400 decoration-2"> for now, <strong>PDF only</strong></p>
       <div
         {...getRootProps({
           className:
