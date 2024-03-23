@@ -7,7 +7,7 @@ import { Form } from "./form/form";
 import { Textarea } from "./form/textarea";
 import { Button } from "./form/button";
 import { useState } from "react";
-import { Resume } from "../apis/Resume";
+import { Drafter } from "../apis/Drafter";
 import { Form as FormType } from "../types/interfaces";
 import { Spinner } from "./spinner";
 import { ToastContainer, toast } from "react-toastify";
@@ -24,16 +24,16 @@ export function JobDescription() {
   async function saveData(data: FormType) {
     setState({ ...state, ...data });
     const body = new FormData();
-    body.append("company", data.company);
-    body.append("title", data.title);
-    body.append("description", data.description);
-    body.append("resume", data.resume!);
+    body.append("company", state.company);
+    body.append("title", state.title);
+    body.append("description", state.description);
+    // body.append("resume", data.resume!);
 
     setSubmitting(true);
     console.log(submitting);
-    const resume = new Resume(body);
+    const drafter = new Drafter(body);
     try {
-      const result = await toast.promise(resume.post(), {
+      const result = await toast.promise(drafter.post(), {
         pending: "we are working on it!",
         success: "uploaded and process!",
         error: "Something went, please try again",

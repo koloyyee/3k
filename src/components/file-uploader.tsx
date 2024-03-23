@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { Form } from "./form/form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./form/button";
+import { Form as FormType } from "../types/interfaces";
+import { Drafter } from "../apis/Drafter";
 /**
  *  Basic usage of the file dropzone
  *  reference https://react-dropzone.js.org/#section-basic-example
@@ -25,7 +27,7 @@ export function FileUploader() {
     getInputProps } = useDropzone({
     accept: {
       "application/pdf": [],
-     // "application/vnd.openxmlformats-officedocument.wordprocessingml.document":[],
+     "application/vnd.openxmlformats-officedocument.wordprocessingml.document":[],
     },
     onDrop: (files) => {
       if(errors) console.log(errors);
@@ -35,6 +37,11 @@ export function FileUploader() {
   });
 
   function saveData() {
+    const body= new FormData();
+    body.append("resume", state.resume!);
+    const drafter = new Drafter(body);
+    const resp = drafter.preload();
+    console.log(resp)
     navigate("/job_description");
   }
   return (
