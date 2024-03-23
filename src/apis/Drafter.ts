@@ -24,11 +24,12 @@ export class Drafter {
     return this.#endpoint;
   }
 
-  async preload(): Promise<string | Error> {
+  async preload(): Promise<string | void | Error> {
 
     const resume = this.#body.get("resume") as Form['resume'] | null
     const fileType = resume!.type === FileType.pdf ? ext.PDF : ext.DOCX;
 
+      
 
     return await fetch(this.getEndpoint + "/preload/" + fileType, {
       method: "POST",

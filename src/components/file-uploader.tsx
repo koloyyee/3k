@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Form } from "./form/form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./form/button";
-import { Form as FormType } from "../types/interfaces";
+// import { Form as FormType } from "../types/interfaces";
 import { Drafter } from "../apis/Drafter";
 /**
  *  Basic usage of the file dropzone
@@ -21,23 +21,23 @@ export function FileUploader() {
   const navigate = useNavigate();
   // const watchFile = watch("resume");
 
-  const { 
+  const {
     // acceptedFiles, 
-    getRootProps, 
+    getRootProps,
     getInputProps } = useDropzone({
-    accept: {
-      "application/pdf": [],
-     "application/vnd.openxmlformats-officedocument.wordprocessingml.document":[],
-    },
-    onDrop: (files) => {
-      if(errors) console.log(errors);
-      setState({ ...state, resume: files[0] });
-    },
-    // maxFiles: 1,
-  });
+      accept: {
+        "application/pdf": [],
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [],
+      },
+      onDrop: (files) => {
+        if (errors) console.log(errors);
+        setState({ ...state, resume: files[0] });
+      },
+      // maxFiles: 1,
+    });
 
   function saveData() {
-    const body= new FormData();
+    const body = new FormData();
     body.append("resume", state.resume!);
     const drafter = new Drafter(body);
     const resp = drafter.preload();
@@ -52,7 +52,7 @@ export function FileUploader() {
       >
         Upload Your Resume
       </label>
-      
+
       <p className="underline decoration-purple-400 decoration-2"> for now, <strong>PDF only</strong></p>
       <div
         {...getRootProps({
