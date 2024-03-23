@@ -15,8 +15,7 @@ export function Response() {
   //  const navigate = useNavigate();
 
   function onCopy() {
-    copy(draft);
-    console.log(draft);
+    copy(draft.replace("DRAFT", ""));
     toast.success("Copied to clipboard!");
   }
   //function retry() {

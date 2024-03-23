@@ -2,9 +2,9 @@ import { Form } from "../types/interfaces";
 import { FileType } from "../util/file-type";
 
 const ext = {
-  PDF : "pdf",
-  DOCX :"docx"
-} as const 
+  PDF: "pdf",
+  DOCX: "docx"
+} as const
 
 export class Drafter {
   #endpoint;
@@ -13,7 +13,7 @@ export class Drafter {
   constructor(body: FormData) {
     this.#endpoint = import.meta.env.VITE_BACKEND;
     this.#body = body;
-  
+
   }
 
   get getBody() {
@@ -27,7 +27,7 @@ export class Drafter {
   async preload(): Promise<string | Error> {
 
     const resume = this.#body.get("resume") as Form['resume'] | null
-    const fileType = resume!.type === FileType.pdf ?  ext.PDF: ext.DOCX;
+    const fileType = resume!.type === FileType.pdf ? ext.PDF : ext.DOCX;
 
 
     return await fetch(this.getEndpoint + "/preload/" + fileType, {
@@ -36,23 +36,14 @@ export class Drafter {
     }).then(response => {
       if (response.status !== 200) {
         throw new Error("upload failed")
-      } else {
-        return "Success";
       }
     })
 
   }
 
   async post(): Promise<string | Error> {
-    let subpath: string = "";
 
-    // if (resume) {
-    // subpath = "/upload/" + this.#fileType.toLowerCase();
-    //} else {
-    subpath = "/generate"
-    //}
-
-    return fetch(this.getEndpoint + subpath, {
+    return fetch(this.getEndpoint + "/generate", {
       method: "POST",
       body: this.#body,
     })
