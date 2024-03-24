@@ -5,19 +5,22 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 /**
- * <p>
  * Response shows the cover letter result.
  * User is able to copy text to clipboard 
  * @see {@link useCopy }
- * </p>
- *  <p> 
+ * 
+ * 
+ * {@link useLocation} allow use to pass the props from one component to here.
+ * in this case from result in an object `state` 
+ * from {@link JobDescription} to {@link Response}.
+ * 
+ * 
  * TODO: Implementing a max of 3 retry due to RPM and token exceed concern.
- * </p>
  * @returns React Component
  */
 export function Response() {
   const [_, copy] = useCopy();
-  const { state } = useLocation();
+  const { state } = useLocation(); 
   const { result } = state;
   const [draft, setDraft] = useState(result);
   // const [retryCount, setRetryCount] = useState(3);
