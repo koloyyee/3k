@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Form } from "./form/form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./form/button";
-import { UploadIcon } from "./upload-icon";
+import { UploadIcon } from "../assets/upload-icon";
 
 /**
  * FileUploader handles resume in PDF and DOCX

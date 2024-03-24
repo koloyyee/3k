@@ -24,22 +24,21 @@ export class Drafter {
     return this.#endpoint;
   }
 
+  
+  // private async preload(): Promise<string | void | Error> {
 
-  private async preload(): Promise<string | void | Error> {
+  //   const resume = this.#body.get("resume") as Form['resume'] | null
+  //   const fileType = resume!.type === FileType.pdf ? Subpath.PDF : Subpath.DOCX;
 
-    const resume = this.#body.get("resume") as Form['resume'] | null
-    const fileType = resume!.type === FileType.pdf ? Subpath.PDF : Subpath.DOCX;
-
-    return await fetch(this.getEndpoint + "/preload/" + fileType, {
-      method: "POST",
-      body: this.#body
-    }).then(response => {
-      if (response.status !== 200) {
-        throw new Error("upload failed")
-      }
-    })
-
-  }
+  //   return await fetch(this.getEndpoint + "/preload/" + fileType, {
+  //     method: "POST",
+  //     body: this.#body
+  //   }).then(response => {
+  //     if (response.status !== 200) {
+  //       throw new Error("upload failed")
+  //     }
+  //   })
+  // }
 
   async post(): Promise<string | Error> {
     const resume = this.#body.get("resume") as Form['resume'] | null
