@@ -5,7 +5,8 @@ import { Form } from "./form/form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./form/button";
 // import { Form as FormType } from "../types/interfaces";
-import { Drafter } from "../apis/Drafter";
+// import { Drafter } from "../apis/Drafter";
+import { UploadIcon } from "./upload-icon";
 /**
  *  Basic usage of the file dropzone
  *  reference https://react-dropzone.js.org/#section-basic-example
@@ -22,26 +23,27 @@ export function FileUploader() {
   // const watchFile = watch("resume");
 
   const {
-    // acceptedFiles, 
+    // acceptedFiles,
     getRootProps,
-    getInputProps } = useDropzone({
-      accept: {
-        "application/pdf": [],
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [],
-      },
-      onDrop: (files) => {
-        if (errors) console.log(errors);
-        setState({ ...state, resume: files[0] });
-      },
-      // maxFiles: 1,
-    });
+    getInputProps,
+  } = useDropzone({
+    accept: {
+      "application/pdf": [],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [],
+    },
+    onDrop: (files) => {
+      if (errors) console.log(errors);
+      setState({ ...state, resume: files[0] });
+    },
+    // maxFiles: 1,
+  });
 
   function saveData() {
-    const body = new FormData();
-    body.append("resume", state.resume!);
-    const drafter = new Drafter(body);
-    const resp = drafter.preload();
-    console.log(resp)
+    // const body = new FormData();
+    // body.append("resume", state.resume!);
+    //const drafter = new Drafter(body);
+    //const resp = drafter.preload();
     navigate("/job_description");
   }
   return (
@@ -53,11 +55,14 @@ export function FileUploader() {
         Upload Your Resume
       </label>
 
-      <p className="underline decoration-purple-400 decoration-2"> for now, <strong>PDF only</strong></p>
+      <p className="underline decoration-purple-400 decoration-2">
+        {" "}
+        for now, <strong>PDF only</strong>
+      </p>
       <div
         {...getRootProps({
           className:
-            " rounded-lg border-dotted border-[2px] hover:border-dotted hover:border-blue-400 hover:ring-blue-200 hover:ring-2 hover:shadow-lg hover:shadow-blue-200 ease-in-out duration-300 min-h-96 flex flex-col justify-center items-center",
+            "w-[70vw] rounded-lg border-dotted border-[2px] hover:border-dotted hover:border-blue-400 hover:ring-blue-200 hover:ring-2 hover:shadow-lg hover:shadow-blue-200 ease-in-out duration-300 min-h-96 flex flex-col justify-center items-center",
         })}
       >
         <>
@@ -65,7 +70,10 @@ export function FileUploader() {
           {state.resume ? (
             <p>{state.resume?.name}</p>
           ) : (
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <>
+              <UploadIcon />
+              <p>Drag 'n' drop or click to select files</p>
+            </>
           )}
         </>
       </div>

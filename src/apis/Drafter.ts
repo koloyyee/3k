@@ -43,8 +43,10 @@ export class Drafter {
   }
 
   async post(): Promise<string | Error> {
-
-    return fetch(this.getEndpoint + "/generate", {
+    const resume = this.#body.get("resume") as Form['resume'] | null
+    const subpath = resume!.type === FileType.pdf ? "/upload/pdf" : "/upload/docx";
+    // subpath = "/generate" 
+    return fetch(this.getEndpoint + subpath, {
       method: "POST",
       body: this.#body,
     })

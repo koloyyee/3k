@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useCopy } from "../util/use-copy-hook";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+
 
 export function Response() {
   const [_, copy] = useCopy();
@@ -19,26 +20,26 @@ export function Response() {
     toast.success("Copied to clipboard!");
   }
   //function retry() {
-    // console.log({data})
-    // const body = new FormData();
-    // body.append("company", data.company);
-    // body.append("title", data.title);
-    // body.append("description", data.description);
-    // body.append("resume", data.resume!);
+  // console.log({data})
+  // const body = new FormData();
+  // body.append("company", data.company);
+  // body.append("title", data.title);
+  // body.append("description", data.description);
+  // body.append("resume", data.resume!);
 
-    // const resume = new Resume(body);
-    // const retryResult = resume.post();
+  // const resume = new Resume(body);
+  // const retryResult = resume.post();
 
-    // try{
-    //   if (typeof result == "string") {
-    //     /** post the body */
-    //     setRetryCount(retryCount - 1)
-    //     navigate("/response", { state: { result : retryResult, data: {...data} } });
-    //   }
-    // } catch(error) {
-    //   console.error(error);
-    // }
-    //
+  // try{
+  //   if (typeof result == "string") {
+  //     /** post the body */
+  //     setRetryCount(retryCount - 1)
+  //     navigate("/response", { state: { result : retryResult, data: {...data} } });
+  //   }
+  // } catch(error) {
+  //   console.error(error);
+  // }
+  //
   //}
   //<Link className={`btn btn-secondary`} to="/job_description">
   //  {"Back"}
@@ -63,9 +64,12 @@ export function Response() {
         >
           Copy
         </button>
+        <Link className={`btn btn-secondary`} to="/job_description">
+          {"Back"}
+        </Link>
 
       </div>
       <ToastContainer position="top-center" />
-    </div>
+    </div >
   );
 }

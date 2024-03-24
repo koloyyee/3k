@@ -17,7 +17,7 @@ export function JobDescription() {
   const [submitting, setSubmitting] = useState(false);
   const [state, setState] = useAppState();
 
-  const { handleSubmit, register } = useForm({ defaultValues: state });
+  const { handleSubmit, register, formState: { errors } } = useForm({ defaultValues: state });
   const navigate = useNavigate();
 
 
@@ -27,7 +27,7 @@ export function JobDescription() {
     body.append("company", state.company);
     body.append("title", state.title);
     body.append("description", state.description);
-    // body.append("resume", data.resume!);
+    body.append("resume", state.resume!);
 
     setSubmitting(true);
     console.log(submitting);
@@ -55,14 +55,34 @@ export function JobDescription() {
     "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4 ";
   return (
     <Form onSubmit={handleSubmit(saveData)}>
-      <Field label="Company Name" labelClass={labelStyle} error={undefined}>
-        <Input {...register("company")} id="company" disabled={ submitting} />
+      <Field label="Company Name" labelClass={labelStyle} error={errors.company?.message}>
+        <Input {...register("company", {
+          required: "Company name is required",
+          minLength: {
+            value: 1,
+            message: "Company name must be at least 1 characters long"
+          }
+        })} id="company" disabled={submitting} />
       </Field>
-      <Field label="Job Title" labelClass={labelStyle} error={undefined}>
-        <Input {...register("title")} id="title"  disabled={ submitting} />
+      <Field label="Job Title" labelClass={labelStyle} error={errors?.title?.message}>
+        <Input {...register("title", {
+
+          required: "Job title is required",
+          minLength: {
+            value: 1,
+            message: "Job title must be at least 1 characters long"
+          }
+        })} id="title" disabled={submitting} />
       </Field>
-      <Field label="Job Description" labelClass={labelStyle} error={undefined}>
-        <Textarea {...register("description")} id="description"  disabled={ submitting} />
+      <Field label="Job Description" labelClass={labelStyle} error={errors?.description?.message}>
+        <Textarea {...register("description", {
+
+          required: "Job title is required",
+          minLength: {
+            value: 1,
+            message: "Job title must be at least 1 characters long"
+          }
+        })} id="description" disabled={submitting} />
       </Field>
 
       <div className="flex gap-5 justify-center items-center self-center">
