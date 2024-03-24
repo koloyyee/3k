@@ -12,7 +12,16 @@ import { Form as FormType } from "../types/interfaces";
 import { Spinner } from "./spinner";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
+/**
+ * Job Description takes company, job title, and description of the job
+ * all input field must be filled in
+ * validating for empty input field with React-hook-from register function.
+ * @link https://react-hook-form.com/docs/useform/register -> Options section.
+ * 
+ * Implementing validation reference 
+ * @link https://claritydev.net/blog/form-validation-react-hook-form
+ * @returns React Component
+ */
 export function JobDescription() {
   const [submitting, setSubmitting] = useState(false);
   const [state, setState] = useAppState();
