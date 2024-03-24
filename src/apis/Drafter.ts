@@ -1,9 +1,9 @@
 import { Form } from "../types/interfaces";
-import { FileType } from "../util/file-type";
+import { FileType } from "../types/file-type";
 
-const ext = {
-  PDF: "pdf",
-  DOCX: "docx"
+const Subpath = {
+  PDF: "/upload/pdf",
+  DOCX: "/upload/docx"
 } as const
 
 export class Drafter {
@@ -24,12 +24,11 @@ export class Drafter {
     return this.#endpoint;
   }
 
-  async preload(): Promise<string | void | Error> {
+
+  private async preload(): Promise<string | void | Error> {
 
     const resume = this.#body.get("resume") as Form['resume'] | null
-    const fileType = resume!.type === FileType.pdf ? ext.PDF : ext.DOCX;
-
-      
+    const fileType = resume!.type === FileType.pdf ? Subpath.PDF : Subpath.DOCX;
 
     return await fetch(this.getEndpoint + "/preload/" + fileType, {
       method: "POST",
@@ -44,7 +43,7 @@ export class Drafter {
 
   async post(): Promise<string | Error> {
     const resume = this.#body.get("resume") as Form['resume'] | null
-    const subpath = resume!.type === FileType.pdf ? "/upload/pdf" : "/upload/docx";
+    const subpath = resume!.type === FileType.pdf ? Subpath.PDF : Subpath.DOCX;
     // subpath = "/generate" 
     return fetch(this.getEndpoint + subpath, {
       method: "POST",
