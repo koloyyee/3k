@@ -39,7 +39,6 @@ export function JobDescription() {
     body.append("resume", state.resume!);
 
     setSubmitting(true);
-    console.log(submitting);
     const drafter = new Drafter(body);
     try {
       const result = await toast.promise(drafter.post(), {
@@ -48,15 +47,11 @@ export function JobDescription() {
         error: "Something went, please try again",
       });
       if (typeof result == "string") {
-        /** post the body */
-        // const result ="testing"
-        console.log(submitting);
         navigate("/response", { state: { result, data: { ...state } } });
       }
     } catch (error) {
       console.error(error);
     } finally {
-      console.log(submitting);
       setSubmitting(false);
     }
   }

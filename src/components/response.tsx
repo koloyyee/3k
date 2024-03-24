@@ -4,7 +4,17 @@ import { Link, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
+/**
+ * <p>
+ * Response shows the cover letter result.
+ * User is able to copy text to clipboard 
+ * @see {@link useCopy }
+ * </p>
+ *  <p> 
+ * TODO: Implementing a max of 3 retry due to RPM and token exceed concern.
+ * </p>
+ * @returns React Component
+ */
 export function Response() {
   const [_, copy] = useCopy();
   const { state } = useLocation();
