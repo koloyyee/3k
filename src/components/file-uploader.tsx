@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 import { Form } from "./form/form";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./form/button";
-// import { Form as FormType } from "../types/interfaces";
-// import { Drafter } from "../apis/Drafter";
 import { UploadIcon } from "./upload-icon";
+
 /**
+ * FileUploader handles resume in PDF and DOCX
+ * only accepting 1 file at a time
+ * button will be disabled if the no file was uploaded.
+ *
  *  Basic usage of the file dropzone
  *  reference https://react-dropzone.js.org/#section-basic-example
  * @returns React Component
@@ -36,14 +39,16 @@ export function FileUploader() {
       if (errors) console.log(errors);
       setState({ ...state, resume: files[0] });
     },
-    // maxFiles: 1,
+    maxFiles: 1,
   });
 
   function saveData() {
-    // const body = new FormData();
-    // body.append("resume", state.resume!);
-    //const drafter = new Drafter(body);
-    //const resp = drafter.preload();
+    /* Preload testing
+    const body = new FormData();
+    body.append("resume", state.resume!);
+    const drafter = new Drafter(body);
+    const resp = drafter.preload();
+    */
     navigate("/job_description");
   }
   return (
