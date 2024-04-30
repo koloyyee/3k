@@ -13,7 +13,7 @@ export const App = () => {
         <br />
         Let Us Help You to Draft the Cover Letter
       </h1>
-      <p className="underline decoration-amber-400 decoration-2"> We are still in <strong>beta</strong> sometimes response might not work.</p>
+      <p className="underline decoration-amber-400 decoration-2"> We are still in <strong>prototype</strong> sometimes response might not work.</p>
       <AppProvider>
         <Router>
           <Routes>
