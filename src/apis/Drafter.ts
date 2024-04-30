@@ -1,10 +1,6 @@
 import { Form } from "../types/interfaces";
 import { FileType } from "../types/file-type";
 
-const Subpath = {
-  PDF: "/upload/pdf",
-  DOCX: "/upload/docx"
-} as const
 
 export class Drafter {
   #endpoint;
@@ -24,25 +20,16 @@ export class Drafter {
     return this.#endpoint;
   }
 
-  
-  // private async preload(): Promise<string | void | Error> {
 
-  //   const resume = this.#body.get("resume") as Form['resume'] | null
-  //   const fileType = resume!.type === FileType.pdf ? Subpath.PDF : Subpath.DOCX;
-
-  //   return await fetch(this.getEndpoint + "/preload/" + fileType, {
-  //     method: "POST",
-  //     body: this.#body
-  //   }).then(response => {
-  //     if (response.status !== 200) {
-  //       throw new Error("upload failed")
-  //     }
-  //   })
-  // }
-
-  async post(): Promise<string | Error> {
+  async post(): Promise<string | Error | undefined> {
     const resume = this.#body.get("resume") as Form['resume'] | null
-    const subpath = resume!.type === FileType.pdf ? Subpath.PDF : Subpath.DOCX;
+    const subpath = resume!.type === FileType.pdf.type ? FileType.pdf.subpath : FileType.docx.subpath;
+
+
+    for(const[k,v] of this.#body.entries()) {
+      console.log({k,v})
+    }
+
     // subpath = "/generate" 
     return fetch(this.getEndpoint + subpath, {
       method: "POST",
@@ -50,8 +37,7 @@ export class Drafter {
     })
       .then(response => {
         if (response.status !== 200) {
-          console.error(response.text());
-          throw new Error("something went wrong");
+          response.text().then(reason => { throw new Error(reason) });
         } else {
           return response.text();
         }
