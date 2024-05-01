@@ -42,14 +42,10 @@ export function JobDescription() {
     body.append("description", data.description);
     body.append("resume", data.resume!);
 
-    console.log({...state})
-    console.log({...data})
-
     setSubmitting(true);
-    console.log(body.forEach((k,v)=> console.log({k,v})))
     const drafter = new Drafter(body);
     try {
-      const result = await toast.promise(drafter.post(), {
+      const result = await toast.promise(drafter.publicPost(), {
         pending: "we are working on it!",
         success: "uploaded and process!",
         error: "Something went, please try again",
