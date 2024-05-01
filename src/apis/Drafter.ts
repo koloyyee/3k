@@ -26,6 +26,9 @@ export class Drafter {
   async publicPost(): Promise<string | Error | undefined> {
     const resume = this.#body.get("resume") as Form['resume'] | null
     const subpath = resume!.type === FileType.pdf.type ? FileType.pdf.subpath : FileType.docx.subpath;
+
+
+
     // subpath = "/generate" 
     return fetch(this.#publicEndpoint + subpath, {
       method: "POST",

@@ -36,7 +36,7 @@ export function FileUploader() {
         [],
     },
     onDrop: (files) => {
-      if (errors) console.log(errors);
+      // if (errors) console.log(errors);
       setState({ ...state, resume: files[0] });
     },
     maxFiles: 1,
