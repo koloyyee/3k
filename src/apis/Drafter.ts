@@ -3,11 +3,13 @@ import { FileType } from "../types/file-type";
 
 
 export class Drafter {
-  #endpoint;
+  #publicEndpoint;
+  // #privateEndpoint;
   #body;
 
   constructor(body: FormData) {
-    this.#endpoint = import.meta.env.VITE_BACKEND;
+    this.#publicEndpoint = import.meta.env.VITE_BACKEND + "/public";
+    // this.#privateEndpoint = import.meta.env.VITE_BACKEND + "/private";
     this.#body = body;
 
   }
@@ -16,22 +18,16 @@ export class Drafter {
     return this.#body;
   }
 
-  get getEndpoint() {
-    return this.#endpoint;
+  get getPublicEndpoint() {
+    return this.#publicEndpoint;
   }
 
 
-  async post(): Promise<string | Error | undefined> {
+  async publicPost(): Promise<string | Error | undefined> {
     const resume = this.#body.get("resume") as Form['resume'] | null
     const subpath = resume!.type === FileType.pdf.type ? FileType.pdf.subpath : FileType.docx.subpath;
-
-
-    for(const[k,v] of this.#body.entries()) {
-      console.log({k,v})
-    }
-
     // subpath = "/generate" 
-    return fetch(this.getEndpoint + subpath, {
+    return fetch(this.#publicEndpoint + subpath, {
       method: "POST",
       body: this.#body,
     })
