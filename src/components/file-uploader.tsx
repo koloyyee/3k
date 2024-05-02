@@ -60,10 +60,10 @@ export function FileUploader() {
         Upload Your Resume
       </label>
 
-      <p className="underline decoration-purple-400 decoration-2">
+      {/* <p className="underline decoration-purple-400 decoration-2">
         {" "}
         for now, <strong>PDF only</strong>
-      </p>
+      </p> */}
       <div
         {...getRootProps({
           className:
