@@ -4,12 +4,12 @@ import { FileType } from "../types/file-type";
 
 export class Drafter {
   #publicEndpoint;
-  #privateEndpoint;
+  // #privateEndpoint;
   #body;
 
   constructor(body: FormData) {
     this.#publicEndpoint = import.meta.env.VITE_BACKEND + "/public";
-    this.#privateEndpoint = import.meta.env.VITE_BACKEND + "/private";
+    // this.#privateEndpoint = import.meta.env.VITE_BACKEND + "/private";
     this.#body = body;
 
   }
