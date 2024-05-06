@@ -1,10 +1,10 @@
 import { useDropzone } from "react-dropzone";
-import { useAppState } from "../util/state";
+import { useAppState } from "../../util/state";
 import { useForm } from "react-hook-form";
-import { Form } from "./form/form";
+import { Form } from "../common/form";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./form/button";
-import { UploadIcon } from "../assets/upload-icon";
+import { Button } from "../common/button";
+import { UploadIcon } from "../../assets/upload-icon";
 
 /**
  * FileUploader handles resume in PDF and DOCX
@@ -24,7 +24,7 @@ export function FileUploader() {
   } = useForm({ defaultValues: state, mode: "onSubmit" });
   const navigate = useNavigate();
   // const watchFile = watch("resume");
-
+  console.log(errors)
   const {
     // acceptedFiles,
     getRootProps,

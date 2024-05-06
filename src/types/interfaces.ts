@@ -1,4 +1,4 @@
-export interface Form {
+export interface IForm {
   company: string;
   title: string;
   description: string;

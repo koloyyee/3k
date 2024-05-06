@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCopy } from "../util/use-copy-hook";
+import { useCopy } from "../../util/use-copy-hook";
 import { Link, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

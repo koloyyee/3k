@@ -3,9 +3,9 @@ import { FileType } from "../types/file-type";
 
 
 export class Drafter {
-  #publicEndpoint;
+  #publicEndpoint : string;
   // #privateEndpoint;
-  #body;
+  #body : FormData;
 
   constructor(body: FormData) {
     this.#publicEndpoint = import.meta.env.VITE_BACKEND + "/public";

@@ -11,7 +11,7 @@ export function AppProvider({ children }: {children: ReactNode}) {
   );
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAppState(): any{
+export function useAppState(){
   const context = useContext(AppStateContext);
   if (!context) {
     throw new Error("useAppState must be used within the AppProvider");

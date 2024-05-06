@@ -1,15 +1,15 @@
-import { useAppState } from "../util/state";
+import { useAppState } from "../../util/state";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { Field } from "./form/fields";
-import { Input } from "./form/input";
-import { Form } from "./form/form";
-import { Textarea } from "./form/textarea";
-import { Button } from "./form/button";
+import { Field } from "../common/fields";
+import { Input } from "../common/input";
+import { Form } from "../common/form";
+import { Textarea } from "../common/textarea";
+import { Button } from "../common/button";
 import { useState } from "react";
-import { Drafter } from "../apis/Drafter";
-import { Form as FormType } from "../types/interfaces";
-import { Spinner } from "./spinner";
+import { Drafter } from "../../apis/Drafter";
+import { IForm} from "../../types/interfaces";
+import { Spinner } from "../common/spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 /**
@@ -34,7 +34,7 @@ export function JobDescription() {
   const navigate = useNavigate();
  
 
-  async function saveData(data: FormType) {
+  async function saveData(data: IForm ) {
     setState({ ...state, ...data });
     const body = new FormData();
     body.append("company", data.company);
