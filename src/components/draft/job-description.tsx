@@ -124,9 +124,9 @@ export function JobDescription() {
           <Spinner />
         ) : (
           <>
-            <Link className={`btn btn-secondary`} to="/">
+            {/* <Link className={`btn btn-secondary`} to="/">
               {"Back"}
-            </Link>
+            </Link> */}
             <Button> {"Generate!"}</Button>
           </>
         )}

@@ -32,7 +32,7 @@ import "react-toastify/dist/ReactToastify.css";
  */
 
 export default function PublicIndex() {
-  const [state, _ ] = useState<IForm>({
+  const [state, _] = useState<IForm>({
     company: "",
     title: "",
     description: "",
@@ -178,10 +178,7 @@ export default function PublicIndex() {
             <Spinner />
           ) : (
             <>
-              <Link className={`btn btn-secondary`} to="/">
-                {"Back"}
-              </Link>
-              {isSubmitting ? <Spinner /> : <Button> {"Generate!"}</Button>}
+              <Button> {"Generate!"}</Button>
             </>
           )}
         </div>

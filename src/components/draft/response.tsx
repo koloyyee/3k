@@ -21,7 +21,6 @@ import 'react-toastify/dist/ReactToastify.css';
 export function Response() {
   const [_, copy] = useCopy();
   const { state } = useLocation(); 
-  console.log({state});
   const { result } = state;
   const [draft, setDraft] = useState(result);
   // const [retryCount, setRetryCount] = useState(3);
@@ -78,7 +77,7 @@ export function Response() {
         >
           Copy
         </button>
-        <Link className={`btn btn-secondary`} to="/job_description">
+        <Link className={`btn btn-secondary`} to="/">
           {"Back"}
         </Link>
 
