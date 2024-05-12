@@ -13,11 +13,13 @@ import { useState } from "react";
 import { IForm } from "../../types/interfaces";
 import { Field } from "../../components/common/fields";
 import { Input } from "../../components/common/input";
-import { ToastContainer } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/common/button";
 import { Spinner } from "../../components/common/spinner";
 import { Textarea } from "../../components/common/textarea";
+import { Drafter } from "../../apis/Drafter";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 /**
  * FileUploader handles resume in PDF and DOCX
@@ -29,15 +31,8 @@ import { Textarea } from "../../components/common/textarea";
  * @returns React Component
  */
 
-type Inputs = {
-  company: string;
-  title: string;
-  description: string;
-  resume: File | null;
-};
-
 export default function PublicIndex() {
-  const [state, setState] = useState<Inputs>({
+  const [state, _ ] = useState<IForm>({
     company: "",
     title: "",
     description: "",
@@ -46,10 +41,11 @@ export default function PublicIndex() {
   const {
     register,
     handleSubmit,
+    setValue,
     // watch,
     formState: { errors, isSubmitting },
   } = useForm({ defaultValues: state, mode: "onSubmit" });
-
+  const navigate = useNavigate();
   const {
     // acceptedFiles,
     getRootProps,
@@ -61,21 +57,38 @@ export default function PublicIndex() {
         [],
     },
     onDrop: (files) => {
-      // if (errors) console.log(errors);
-      setState({ ...state, resume: files[0] });
+      setValue("resume", files[0]);
     },
     maxFiles: 1,
   });
 
-  function saveData(data: IForm) {
-    console.log(data);
+  async function saveData(data: IForm) {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => formData.set(key, value));
+
+    const drafter = new Drafter(formData);
+    try {
+      const result = await toast.promise(drafter.publicPost(), {
+        pending: "we are working on it!",
+        success: "uploaded and process!",
+        error: "Something went, please try again",
+      });
+      if (typeof result == "string") {
+        navigate("/response", { state: { result, data: { ...state } } });
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const labelStyle =
     "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4 ";
 
   return (
-    <form className="sm:flex sm:flex-col md:grid md:grid-cols-12 mt-5 " onSubmit={handleSubmit(saveData)}>
+    <form
+      className="sm:flex sm:flex-col md:grid md:grid-cols-12 mt-5 "
+      onSubmit={handleSubmit(saveData)}
+    >
       <div className="flex flex-col md:col-start-1 md:col-end-6 sm:mx-5">
         <label
           className="block my-10 text-xl font-semibold underline decoration-green-300 decoration-4"
@@ -120,10 +133,6 @@ export default function PublicIndex() {
                 value: 1,
                 message: "Company name must be at least 1 characters long",
               },
-              onChange: (e) => {
-                setState({ ...state, ...e.target.value})
-                console.log(state)
-              }
             })}
             id="company"
             disabled={isSubmitting}
@@ -172,7 +181,7 @@ export default function PublicIndex() {
               <Link className={`btn btn-secondary`} to="/">
                 {"Back"}
               </Link>
-              <Button> {"Generate!"}</Button>
+              {isSubmitting ? <Spinner /> : <Button> {"Generate!"}</Button>}
             </>
           )}
         </div>
