@@ -1,10 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { Button } from "../../components/common/button";
 
 export default function PublicRoot() {
   return (
     <>
+      <div className="ml-auto">
+        <Link to="/private/login">
+          <Button> Login / Sign Up</Button>
+        </Link>
+      </div>
       <h1 className="text-4xl">
-        Job Search is {" "}
+        Job Search is{" "}
         <span className="underline  decoration-red-500">hard</span>
         <br />
         Let Us Help You to Draft the Cover Letter
