@@ -11,7 +11,7 @@ import PublicIndex from "./routes/public/index.tsx";
 import PrivateIndex from "./routes/private/index.tsx";
 import PublicRoot from "./routes/public/root.tsx";
 import PrivateRoot from "./routes/private/root.tsx";
-import { Login } from "./components/auth/login.tsx";
+import { Login, action as loginAction } from "./components/auth/login.tsx";
 
 const router = createBrowserRouter([
   { // public route
@@ -39,6 +39,7 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
+        action: loginAction,
         element: <Login />
       }
     ]

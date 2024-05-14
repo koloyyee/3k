@@ -13,7 +13,7 @@ import { useState } from "react";
 import { IForm } from "../../types/interfaces";
 import { Field } from "../../components/common/fields";
 import { Input } from "../../components/common/input";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/common/button";
 import { Spinner } from "../../components/common/spinner";
 import { Textarea } from "../../components/common/textarea";
@@ -22,16 +22,29 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 /**
+ * First part is the file upload:
+ * 
  * FileUploader handles resume in PDF and DOCX
  * only accepting 1 file at a time
  * button will be disabled if the no file was uploaded.
  *
  *  Basic usage of the file dropzone
  *  reference https://react-dropzone.js.org/#section-basic-example
+ * 
+ * Second part takes the job details:
+ * 
+ * Job Description takes company, job title, and description of the job
+ * all input field must be filled in
+ * validating for empty input field with React-hook-from register function.
+ * @link https://react-hook-form.com/docs/useform/register -> Options section.
+ *
+ * Implementing validation reference
+ * @link https://claritydev.net/blog/form-validation-react-hook-form
  * @returns React Component
  */
 
 export default function PublicIndex() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, _] = useState<IForm>({
     company: "",
     title: "",
@@ -97,10 +110,6 @@ export default function PublicIndex() {
           Upload Your Resume
         </label>
 
-        {/* <p className="underline decoration-purple-400 decoration-2">
-        {" "}
-        for now, <strong>PDF only</strong>
-      </p> */}
         <div
           {...getRootProps({
             className:

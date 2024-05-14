@@ -13,6 +13,7 @@ import { Spinner } from "../common/spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 /**
+ * @deprecated
  * Job Description takes company, job title, and description of the job
  * all input field must be filled in
  * validating for empty input field with React-hook-from register function.
