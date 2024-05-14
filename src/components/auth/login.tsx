@@ -12,7 +12,7 @@ type Inputs = {
   password: string;
 }
 
-export async function action({ request, params }) {
+export async function action({ request}: { request: Request }) {
  const formData = await request.formData();
  const auth = new Auth();
   auth.login(formData);
@@ -21,12 +21,12 @@ export async function action({ request, params }) {
 
 export function Login() {
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } }
+  const { register, formState: { errors, isSubmitting } }
     = useForm<Inputs>();
 
-  function login(data: Inputs): void {
-    console.log(data);
-  }
+  // function login(data: Inputs): void {
+  //   console.log(data);
+  // }
 
   const labelStyle =
     "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4 ";

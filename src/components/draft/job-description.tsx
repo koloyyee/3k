@@ -1,6 +1,6 @@
 import { useAppState } from "../../util/state";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { Field } from "../common/fields";
 import { Input } from "../common/input";
 import { Form } from "../common/form";
@@ -22,9 +22,13 @@ import "react-toastify/dist/ReactToastify.css";
  * Implementing validation reference
  * @link https://claritydev.net/blog/form-validation-react-hook-form
  * @returns React Component
+ * @deprecated
  */
 export function JobDescription() {
   const [submitting, setSubmitting] = useState(false);
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   const [state, setState] = useAppState();
 
   const {

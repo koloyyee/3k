@@ -14,8 +14,11 @@ import { UploadIcon } from "../../assets/upload-icon";
  *  Basic usage of the file dropzone
  *  reference https://react-dropzone.js.org/#section-basic-example
  * @returns React Component
+ * @deprecated
  */
 export function FileUploader() {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   const [state, setState] = useAppState();
   const {
     handleSubmit,
