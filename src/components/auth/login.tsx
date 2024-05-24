@@ -3,7 +3,7 @@ import { Field } from "../common/fields";
 import { Input } from "../common/input";
 // import { Form } from "../common/form";
 import { Button } from "../common/button";
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import { Auth } from "../../apis/Auth";
 
 
@@ -12,10 +12,18 @@ type Inputs = {
   password: string;
 }
 
-export async function action({ request}: { request: Request }) {
- const formData = await request.formData();
- const auth = new Auth();
-  auth.login(formData);
+export async function action({ request }: { request: Request }) {
+  const formData = await request.formData();
+  const auth = new Auth();
+  const payload = await auth.login(formData);
+  if (payload.status === 200) {
+    const token = payload.message;
+    localStorage.setItem('username', JSON.stringify(formData.get("username")));
+    localStorage.setItem('token', JSON.stringify(token));
+    console.log({ payload })
+    console.log({ localStorage })
+    return redirect("/private");
+  }
   return null;
 }
 
@@ -69,12 +77,12 @@ export function Login() {
         />
       </Field>
       <div className="flex gap-10">
-      <Button className="bg-red-300" type="reset">
-        Reset
-      </Button>
-      <Button>
-        Login
-      </Button>
+        <Button className="bg-red-300" type="reset">
+          Reset
+        </Button>
+        <Button>
+          Login
+        </Button>
 
       </div>
     </Form>

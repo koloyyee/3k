@@ -45,7 +45,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function PublicIndex() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [state, _] = useState<IForm>({
+  const [state, setState] = useState<IForm>({
     company: "",
     title: "",
     description: "",
@@ -71,6 +71,7 @@ export default function PublicIndex() {
     },
     onDrop: (files) => {
       setValue("resume", files[0]);
+      setState({ ...state, resume: files[0]})
     },
     maxFiles: 1,
   });
