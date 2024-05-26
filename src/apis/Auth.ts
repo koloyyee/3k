@@ -17,5 +17,21 @@ export class Auth {
     return { status: resp.status, message: await resp.text() };
 
   }
+
+  public logout() :void {
+    localStorage.removeItem("token")
+  }
+
+  /***
+   * getBearerToken retrieve token from localStorage with "Bearer " before the token
+   * this way it saves time not to type Bearer.
+   */
+  public getBearerToken() : string{
+   const tokenJ= localStorage.getItem("token");
+   if(tokenJ) {
+    return "Bearer " +  JSON.parse(tokenJ);
+   }
+   return "NO TOKEN EXIST";
+  }
 }
 

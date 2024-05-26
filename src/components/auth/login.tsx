@@ -24,6 +24,7 @@ export async function action({ request }: { request: Request }) {
     console.log({ localStorage })
     return redirect("/private");
   }
+  // TODO: add toast for success and failure 
   return null;
 }
 

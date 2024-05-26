@@ -5,7 +5,7 @@ export default function PublicRoot() {
   return (
     <>
       <div className="ml-auto">
-        <Link to="/private/login">
+        <Link to="/login">
           <Button> Login / Sign Up</Button>
         </Link>
       </div>

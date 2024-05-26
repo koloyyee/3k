@@ -12,24 +12,34 @@ import PrivateIndex from "./routes/private/index.tsx";
 import PublicRoot from "./routes/public/root.tsx";
 import PrivateRoot from "./routes/private/root.tsx";
 import { Login, action as loginAction } from "./components/auth/login.tsx";
+import AuthProvider from "./apis/auth-provider.tsx";
 
 const router = createBrowserRouter([
-  { // public route
+  {
+    path: "login",
+    action: loginAction,
+    element: <Login />,
+  },
+  {
+    // public route
     path: "/",
     element: <PublicRoot />,
     errorElement: <h1> Oops</h1>,
     children: [
+  
       {
         index: true,
-        element: <PublicIndex />
+        element: <PublicIndex />,
       },
       {
-        path:"/response",
-        element: <Response />
-      }
-    ]
+        path: "/response",
+        element: <Response />,
+      },
+    
+    ],
   },
-  { // public route
+  {
+    // public route
     path: "/private",
     element: <PrivateRoot />,
     children: [
@@ -37,18 +47,15 @@ const router = createBrowserRouter([
         index: true,
         element: <PrivateIndex />,
       },
-      {
-        path: "login",
-        action: loginAction,
-        element: <Login />
-      }
-    ]
+   
+    ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    {/*<App />*/}
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
