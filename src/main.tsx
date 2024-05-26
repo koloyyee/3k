@@ -13,12 +13,18 @@ import PublicRoot from "./routes/public/root.tsx";
 import PrivateRoot from "./routes/private/root.tsx";
 import { Login, action as loginAction } from "./components/auth/login.tsx";
 import AuthProvider from "./apis/auth-provider.tsx";
+import { Register, action as registerAction } from "./components/auth/register.tsx";
 
 const router = createBrowserRouter([
   {
     path: "login",
     action: loginAction,
     element: <Login />,
+  },
+  {
+    path: "register",
+    action: registerAction,
+    element: <Register/>,
   },
   {
     // public route

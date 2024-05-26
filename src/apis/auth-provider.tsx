@@ -12,7 +12,7 @@ export const AuthContext = createContext("auth");
 const AuthProvider = ({ children }) => {
   const [token, setToken_] = useState(localStorage.getItem("token"));
   const setToken = (newToken : string) => {
-    setToken_(JSON.parse(newToken));
+    setToken_(newToken);
   };  
 
   const contextValue = useMemo(() => ({

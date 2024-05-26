@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/common/button";
 import { Spinner } from "../../components/common/spinner";
 import { Textarea } from "../../components/common/textarea";
-import { Drafter } from "../../apis/Drafter";
+import { Drafter } from "../../apis/drafter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
