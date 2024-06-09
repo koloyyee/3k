@@ -7,7 +7,7 @@ import { Auth } from "../../apis/auth";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../config/firebase";
 
 type Inputs = {
@@ -57,16 +57,24 @@ export function Login() {
 
   async function onSubmit(data: Inputs) {
     console.log(data);
-    await signInWithEmailAndPassword(auth, data.username, data.password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        localStorage.setItem("uid", user.uid);
-        localStorage.setItem("email", user.email!);
-        console.log({user});
-        navigate("/private") 
-      }).catch( error => {
-        console.error(error);
-      })
+    const auth = new Auth();
+    const resp = await auth.login(data);
+    if (resp === "success") {
+      const uid = localStorage.getItem("uid");
+      console.log(uid);
+      navigate("/private");
+    } else {
+      console.log(resp);
+    }
+    // await signInWithEmailAndPassword(auth, data.username, data.password)
+    //   .then(userCredential => {
+    //     const user = userCredential.user;
+    //     localStorage.setItem("uid", user.uid);
+    //     localStorage.setItem("email", user.email!);
+    //     navigate("/private") 
+    //   }).catch( error => {
+    //     console.error(error);
+    //   })
   }
 
   const labelStyle =

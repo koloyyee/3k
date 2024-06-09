@@ -1,13 +1,30 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../config/firebase";
+
 export class Auth {
   #endpoint: string;
 
   constructor() {
     this.#endpoint = import.meta.env.VITE_BACKEND + "/private/auth";
   }
-  public async firebaseLogin() {
-    
+
+  // firebase email password sign-in 
+  public async login(data: { username: string, password: string }): Promise<string | Error> {
+    return await signInWithEmailAndPassword(auth, data.username, data.password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        localStorage.setItem("uid", user.uid);
+        localStorage.setItem("email", user.email!);
+        user.getIdToken(true).then(token => localStorage.setItem("token", token));
+        return "success";
+      }).catch(error => {
+        return error;
+      });
   }
-  public async login(body: FormData){
+
+
+  // deprecated 
+  private async _login(body: FormData) {
     const { username, password } = Object.fromEntries(body);
     const resp = await fetch(this.#endpoint + "/token", {
       method: "POST",
