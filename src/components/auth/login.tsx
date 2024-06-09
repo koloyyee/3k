@@ -1,19 +1,21 @@
 import { useForm } from "react-hook-form";
 import { Field } from "../common/fields";
 import { Input } from "../common/input";
-// import { Form } from "../common/form";
 import { Button } from "../common/button";
-import { Form, Link, redirect } from "react-router-dom";
+import { Form, Link, redirect, useNavigate } from "react-router-dom";
 import { Auth } from "../../apis/auth";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../config/firebase";
 
 type Inputs = {
   username: string;
   password: string;
 };
 
+// the React router dom way of submitting.
 export async function action({ request }: { request: Request }) {
   const formData = await request.formData();
   const auth = new Auth();
@@ -46,16 +48,33 @@ export async function action({ request }: { request: Request }) {
  * 1. error message for failed login.
  */
 export function Login() {
+  const navigate = useNavigate();
   const {
     register,
+    handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>();
+
+  async function onSubmit(data: Inputs) {
+    console.log(data);
+    await signInWithEmailAndPassword(auth, data.username, data.password)
+      .then(userCredential => {
+        const user = userCredential.user;
+        localStorage.setItem("uid", user.uid);
+        localStorage.setItem("email", user.email!);
+        console.log({user});
+        navigate("/private") 
+      }).catch( error => {
+        console.error(error);
+      })
+  }
 
   const labelStyle =
     "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4 ";
   return (
     <>
-      <Form id="login-form" role="auth" method="post">
+      {/* <Form id="login-form" role="auth" method="post"> */}
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Field
           label="Username"
           labelClass={labelStyle}
@@ -97,7 +116,8 @@ export function Login() {
           </Button>
           <Button>Login</Button>
         </div>
-      </Form>
+      </form>
+      {/* </Form> */}
       <Link to="/register" />
       <ToastContainer position="top-center" />
     </>

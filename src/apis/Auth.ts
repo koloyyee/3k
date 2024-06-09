@@ -4,7 +4,9 @@ export class Auth {
   constructor() {
     this.#endpoint = import.meta.env.VITE_BACKEND + "/private/auth";
   }
-
+  public async firebaseLogin() {
+    
+  }
   public async login(body: FormData){
     const { username, password } = Object.fromEntries(body);
     const resp = await fetch(this.#endpoint + "/token", {
@@ -24,9 +26,6 @@ export class Auth {
       // throw new Error("Username or Password incorrect.")
       return "failed";
     }
-    
-
-
   }
 
   public logout(): void {
@@ -44,5 +43,6 @@ export class Auth {
     }
     return "NO TOKEN EXIST";
   }
+
 }
 
