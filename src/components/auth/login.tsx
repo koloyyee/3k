@@ -61,20 +61,10 @@ export function Login() {
     const resp = await auth.login(data);
     if (resp === "success") {
       const uid = localStorage.getItem("uid");
-      console.log(uid);
       navigate("/private");
     } else {
       console.log(resp);
     }
-    // await signInWithEmailAndPassword(auth, data.username, data.password)
-    //   .then(userCredential => {
-    //     const user = userCredential.user;
-    //     localStorage.setItem("uid", user.uid);
-    //     localStorage.setItem("email", user.email!);
-    //     navigate("/private") 
-    //   }).catch( error => {
-    //     console.error(error);
-    //   })
   }
 
   const labelStyle =

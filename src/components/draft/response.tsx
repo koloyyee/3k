@@ -9,11 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
  * User is able to copy text to clipboard 
  * @see {@link useCopy }
  * 
- * 
  * {@link useLocation} allow use to pass the props from one component to here.
  * in this case from result in an object `state` 
  * from {@link JobDescription} to {@link Response}.
- * 
  * 
  * TODO: Implementing a max of 3 retry due to RPM and token exceed concern.
  * @returns React Component
@@ -24,52 +22,30 @@ export function Response() {
   const { result } = state;
   const [draft, setDraft] = useState(result);
   // const [retryCount, setRetryCount] = useState(3);
-  //setRetryCount;
-  _;
-  //  const navigate = useNavigate();
+  const resp = JSON.parse(draft);
 
   function onCopy() {
-    copy(draft.replace("DRAFT", ""));
+    copy(resp.content.replace("DRAFT", ""));
     toast.success("Copied to clipboard!");
   }
-  //function retry() {
-  // console.log({data})
-  // const body = new FormData();
-  // body.append("company", data.company);
-  // body.append("title", data.title);
-  // body.append("description", data.description);
-  // body.append("resume", data.resume!);
-
-  // const resume = new Resume(body);
-  // const retryResult = resume.post();
-
-  // try{
-  //   if (typeof result == "string") {
-  //     /** post the body */
-  //     setRetryCount(retryCount - 1)
-  //     navigate("/response", { state: { result : retryResult, data: {...data} } });
-  //   }
-  // } catch(error) {
-  //   console.error(error);
-  // }
-  //
-  //}
-  //<Link className={`btn btn-secondary`} to="/job_description">
-  //  {"Back"}
-  // </Link>
 
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setDraft(e.target.value);
   }
+
   return (
     <div className="flex flex-col items-center gap-5">
       <textarea
-        defaultValue={draft}
+        defaultValue={resp.content}
         className="border-[1px] border-gray-300 rounded-md p-3 m-0 h-[55vh] w-full"
         onChange={(e) => handleChange(e)}
       // rows={40}
       ></textarea>
       <div className="flex justify-center items-center gap-5">
+
+        <Link className={`btn btn-secondary`} to="/">
+          {"Back"}
+        </Link>
 
         <button
           onClick={onCopy}
@@ -77,10 +53,6 @@ export function Response() {
         >
           Copy
         </button>
-        <Link className={`btn btn-secondary`} to="/">
-          {"Back"}
-        </Link>
-
       </div>
       <ToastContainer position="top-center" />
     </div >

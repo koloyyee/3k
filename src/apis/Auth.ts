@@ -13,6 +13,7 @@ export class Auth {
     return await signInWithEmailAndPassword(auth, data.username, data.password)
       .then(userCredential => {
         const user = userCredential.user;
+        console.log({user})
         localStorage.setItem("uid", user.uid);
         localStorage.setItem("email", user.email!);
         user.getIdToken(true).then(token => localStorage.setItem("token", token));

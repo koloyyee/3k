@@ -3,7 +3,7 @@ import { useAuth } from "../../apis/auth-provider";
 
 export default function PrivateRoot() {
   const { token } = useAuth();
-console.log(token)
+// console.log(token)
   if (token) {
     return (
       <div>
