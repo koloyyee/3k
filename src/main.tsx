@@ -13,8 +13,7 @@ import PublicRoot from "./routes/public/root.tsx";
 import PrivateRoot from "./routes/private/root.tsx";
 import { Login, action as loginAction } from "./components/auth/login.tsx";
 import AuthProvider from "./apis/auth-provider.tsx";
-import { Register, action as registerAction } from "./components/auth/register.tsx";
-import { FirebaseSignUp, action as signupAction} from "./components/auth/firebase_signup.tsx";
+import { FirebaseSignUp, action as signupAction} from "./components/auth/register.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,15 +22,15 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "signup",
+    path: "register",
     action: signupAction,
     element: <FirebaseSignUp/>
   },
-  {
-    path: "register",
-    action: registerAction,
-    element: <Register/>,
-  },
+  // {
+  //   path: "register",
+  //   action: registerAction,
+  //   element: <Register/>,
+  // },
   {
     // public route
     path: "/",

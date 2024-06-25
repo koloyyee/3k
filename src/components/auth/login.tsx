@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../config/firebase";
+import { BackButton } from "../common/back-button";
 
 type Inputs = {
   username: string;
@@ -72,15 +73,17 @@ export function Login() {
   return (
     <>
       {/* <Form id="login-form" role="auth" method="post"> */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="flex flex-col items-end gap-5"
+        onSubmit={handleSubmit(onSubmit)}>
         <Field
-          label="Username"
+          label="Email"
           labelClass={labelStyle}
           error={errors.username?.message}
         >
           <Input
             {...register("username", {
-              required: "Username is required.",
+              required: "Email is required.",
               minLength: {
                 value: 1,
                 message: "Password or Username is incorrect",
@@ -109,14 +112,11 @@ export function Login() {
           />
         </Field>
         <div className="flex gap-10">
-          <Button className="bg-red-300" type="reset">
-            Reset
-          </Button>
           <Button>Login</Button>
         </div>
       </form>
-      {/* </Form> */}
-      <Link to="/register" />
+        <Link className="mt-5" to="/register" > No Account? Register </Link>
+        <BackButton />
       <ToastContainer position="top-center" />
     </>
   );
