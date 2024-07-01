@@ -114,7 +114,8 @@ const [toggle, setToggle] = useState(false);
   return (
     <form
       className="sm:flex sm:flex-col md:grid md:grid-cols-12 mt-5 "
-      onSubmit={ toggle ?  handleSubmit(saveData) : handleSubmit(genResume)}
+      // onSubmit={ toggle ?  handleSubmit(saveData) : handleSubmit(genResume)}
+      onSubmit={handleSubmit(saveData)}
     >
       <div className="flex flex-col md:col-start-1 md:col-end-6 sm:mx-5">
         <label
