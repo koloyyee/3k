@@ -7,7 +7,7 @@ import { Form } from "../common/form";
 import { Textarea } from "../common/textarea";
 import { Button } from "../common/button";
 import { useState } from "react";
-import { Drafter } from "../../apis/drafter";
+import { Drafter } from "../../apis/cover-letter-drafter";
 import { IForm} from "../../types/interfaces";
 import { Spinner } from "../common/spinner";
 import { ToastContainer, toast } from "react-toastify";

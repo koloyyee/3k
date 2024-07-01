@@ -26,11 +26,6 @@ const router = createBrowserRouter([
     action: signupAction,
     element: <FirebaseSignUp/>
   },
-  // {
-  //   path: "register",
-  //   action: registerAction,
-  //   element: <Register/>,
-  // },
   {
     // public route
     path: "/",
@@ -44,6 +39,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/response",
+        element: <Response />,
+      },
+      {
+        path: "/resume",
         element: <Response />,
       },
     

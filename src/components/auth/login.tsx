@@ -57,10 +57,10 @@ export function Login() {
   } = useForm<Inputs>();
 
   async function onSubmit(data: Inputs) {
-    console.log(data);
     const auth = new Auth();
     const resp = await auth.login(data);
     if (resp === "success") {
+      console.log(resp);
       const uid = localStorage.getItem("uid");
       navigate("/private");
     } else {

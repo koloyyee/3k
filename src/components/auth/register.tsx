@@ -6,6 +6,7 @@ import { Field } from "../common/fields";
 import { Input } from "../common/input";
 import { Button } from "../common/button";
 import { BackButton } from "../common/back-button";
+import { Auth } from "@/apis/auth";
 
 /**
  *  Register component is using Firebase.
@@ -13,9 +14,9 @@ import { BackButton } from "../common/back-button";
 export async function action({ request }: { request: Request }) {
   const formData = await request.formData();
   console.log(formData.entries())
-  const email = formData.get("email");
-  const password = formData.get("password");
-  // const { email, password } = Object.fromEntries(formData);
+  // const email = formData.get("email");
+  // const password = formData.get("password");
+  const { email, password } = Object.fromEntries(formData);
   console.log({ email, password })
   // if( email && password) {
   // await createUserWithEmailAndPassword(auth, email, password )
@@ -32,7 +33,7 @@ export function FirebaseSignUp() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting},
   } = useForm<Inputs>();
 
   async function onSubmit(data: Inputs) {

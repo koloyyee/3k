@@ -2,7 +2,9 @@
  * Index tsx will be the combined layout of file upload
  * and the Company, Job title, Job Description
  * all in 1 page.
- *
+ * --------------------
+ * 
+ * Functionality update, we need to generate resume as well.
  *
  * */
 
@@ -17,9 +19,11 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/common/button";
 import { Spinner } from "../../components/common/spinner";
 import { Textarea } from "../../components/common/textarea";
-import { Drafter } from "../../apis/drafter";
+import { CoverLetterDrafter } from "../../apis/cover-letter-drafter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToggleSwitch } from "flowbite-react";
+import { sortUserPlugins } from "vite";
 
 /**
  * First part is the file upload:
@@ -51,6 +55,8 @@ export default function PublicIndex() {
     description: "",
     resume: null,
   });
+const [toggle, setToggle] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -76,11 +82,12 @@ export default function PublicIndex() {
     maxFiles: 1,
   });
 
+  // this generate cover letter
   async function saveData(data: IForm) {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => formData.set(key, value));
 
-    const drafter = new Drafter(formData);
+    const drafter = new CoverLetterDrafter(formData);
     try {
       const result = await toast.promise(drafter.publicPost(), {
         pending: "we are working on it!",
@@ -95,13 +102,19 @@ export default function PublicIndex() {
     }
   }
 
+  async function genResume(data: IForm) {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => formData.set(key, value));
+    console.log( {data});
+  }
+
   const labelStyle =
     "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4 ";
 
   return (
     <form
       className="sm:flex sm:flex-col md:grid md:grid-cols-12 mt-5 "
-      onSubmit={handleSubmit(saveData)}
+      onSubmit={ toggle ?  handleSubmit(saveData) : handleSubmit(genResume)}
     >
       <div className="flex flex-col md:col-start-1 md:col-end-6 sm:mx-5">
         <label
@@ -188,7 +201,9 @@ export default function PublicIndex() {
             <Spinner />
           ) : (
             <>
-              <Button> {"Generate!"}</Button>
+               {/* <ToggleSwitch checked={toggle} label="Toggle to Pick" onChange={setToggle} /> */}
+              {/* <Button> { toggle?  "Cover Letter!" : "Resume"}</Button> */}
+              <Button> { "Generate Cover Letter"}</Button>
             </>
           )}
         </div>

@@ -12,13 +12,13 @@ import { FileType } from "../types/file-type";
  * 
  * #privateEndpoint: string - private instance variable, the private endpoint to omi.
  */
-export class Drafter {
+export class CoverLetterDrafter {
   #publicEndpoint : string;
   // #privateEndpoint;
   #body : FormData;
 
   constructor(body: FormData) {
-    this.#publicEndpoint = import.meta.env.VITE_BACKEND + "/public";
+    this.#publicEndpoint = import.meta.env.VITE_BACKEND + "/public/cover_letter";
     // this.#privateEndpoint = import.meta.env.VITE_BACKEND + "/private";
     this.#body = body;
 
