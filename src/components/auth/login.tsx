@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Field } from "../common/fields";
 import { Input } from "../common/input";
-import { Button } from "../common/button";
+// import { Button } from "../common/button";
 import { Form, Link, redirect, useNavigate } from "react-router-dom";
 import { Auth } from "../../apis/auth";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import { BackButton } from "../common/back-button";
+import { Button } from "flowbite-react";
 
 type Inputs = {
   username: string;
@@ -74,7 +75,7 @@ export function Login() {
     <>
       {/* <Form id="login-form" role="auth" method="post"> */}
       <form
-        className="flex flex-col items-end gap-5"
+        className="flex flex-col  gap-5"
         onSubmit={handleSubmit(onSubmit)}>
         <Field
           label="Email"
@@ -111,12 +112,12 @@ export function Login() {
             type="password"
           />
         </Field>
-        <div className="flex gap-10">
-          <Button>Login</Button>
+        <div className="flex gap-10 self-center">
+        <Button color="red"  onClick={() =>navigate(-1)}> Back </Button>
+          <Button type="submit" >Login</Button>
         </div>
       </form>
         <Link className="mt-5" to="/register" > No Account? Register </Link>
-        <BackButton />
       <ToastContainer position="top-center" />
     </>
   );

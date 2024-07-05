@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react";
+import { Button as FBButton} from "flowbite-react";
 
 type ButtonProps = {
   children: ReactNode;
@@ -9,9 +10,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, variant = "primary", ...props }, ref) => {
     ref;
     return (
-      <button className={`btn btn-${variant}`} {...props}>
+      <FBButton className={`btn btn-${variant}`} {...props}>
         {children}
-      </button>
+      </FBButton>
     );
   }
 );

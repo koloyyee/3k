@@ -4,8 +4,8 @@ import { Button } from "../../components/common/button";
 
 export default function PublicRoot() {
   return (
-    <>
-      <div className="ml-auto">
+    <main className="flex flex-col items-center">
+      <div className="self-end mr-8 mt-3">
         <Link to="/login">
           <Button> Login / Sign Up</Button>
         </Link>
@@ -24,6 +24,6 @@ export default function PublicRoot() {
       <div className="w-[100vw] md:w-[80vw]">
         <Outlet />
       </div>
-    </>
+    </main>
   );
 }
