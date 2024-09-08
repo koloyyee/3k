@@ -1,6 +1,4 @@
-import { CommonCrumbs } from "@/components/common/breadcrumb";
 import { Outlet, useLocation } from "react-router-dom";
-// import { Button } from "../../components/common/button";
 
 
 export default function DrafterRoot() {

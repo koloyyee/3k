@@ -1,16 +1,14 @@
 import { useForm } from "react-hook-form";
 import { Field } from "../common/fields";
 import { Input } from "../common/input";
-// import { Button } from "../common/button";
 import { Link,  redirect,  useNavigate } from "react-router-dom";
-import { Auth } from "../../apis/auth";
-// import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 // import { auth } from "../../config/firebase";
 // import { BackButton } from "../common/back-button";
 import { Button } from "flowbite-react";
+import { Auth } from "@/apis/Auth";
 
 type Inputs = {
   username: string;

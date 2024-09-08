@@ -46,7 +46,7 @@ const router = createBrowserRouter([
 /**
  *  The Utility Apps I am working on.
  */
-const newRouter = createBrowserRouter([
+ createBrowserRouter([
   {
     path: "login",
     action: loginAction,

@@ -8,8 +8,8 @@ export async function action({ request }: { request: Request }) {
   const formData = await request.formData();
   const input = formData.get("link") as string;
   try {
-    const url = new URL(input);
-    const result = await fetch(api, {
+    new URL(input);
+     await fetch(api, {
       method: request.method,
       headers: {
         "Content-Type": "application/json"
