@@ -5,7 +5,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return <input 
   ref={ref} 
   className="max-w-[80vw] md:w-[40vw] text-center
-   border-slate-500 border-[0.5px] 
+   border-slate-500 border-[0.5px]
 
    ease-in-out duration-300  rounded-lg p-3
    focus:border-none 

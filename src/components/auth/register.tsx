@@ -1,23 +1,23 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {  Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
 import { useForm } from "react-hook-form";
 import { Field } from "../common/fields";
 import { Input } from "../common/input";
 import { Button } from "../common/button";
 import { BackButton } from "../common/back-button";
-import { Auth } from "@/apis/auth";
+// import { Auth } from "@/apis/auth";
 
 /**
  *  Register component is using Firebase.
  */
 export async function action({ request }: { request: Request }) {
   const formData = await request.formData();
-  console.log(formData.entries())
+  console.log(formData.entries());
   // const email = formData.get("email");
   // const password = formData.get("password");
   const { email, password } = Object.fromEntries(formData);
-  console.log({ email, password })
+  console.log({ email, password });
   // if( email && password) {
   // await createUserWithEmailAndPassword(auth, email, password )
 
@@ -25,27 +25,27 @@ export async function action({ request }: { request: Request }) {
   return null;
 }
 type Inputs = {
-  email: string,
-  password: string
-}
+  email: string;
+  password: string;
+};
 export function FirebaseSignUp() {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting},
+    formState: { errors, isSubmitting },
   } = useForm<Inputs>();
 
   async function onSubmit(data: Inputs) {
-      await createUserWithEmailAndPassword(auth, data.email, data.password)
+    await createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log({user});
+        console.log({ user });
         navigate("/private");
       })
-      .catch( error => {
+      .catch((error) => {
         console.error(error);
-      })
+      });
   }
 
   const labelStyle =
@@ -53,9 +53,10 @@ export function FirebaseSignUp() {
 
   return (
     <>
-      <form 
-      className="flex flex-col items-end"
-      onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="flex flex-col items-end"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Field
           label="Email"
           labelClass={labelStyle}
@@ -66,11 +67,11 @@ export function FirebaseSignUp() {
               required: "Email is required",
               minLength: {
                 value: 1,
-                message: "Email too short"
+                message: "Email too short",
               },
               maxLength: {
                 value: 255,
-                message: "Email too long"
+                message: "Email too long",
               },
             })}
             id="email"
@@ -89,11 +90,11 @@ export function FirebaseSignUp() {
               required: "Password is required",
               minLength: {
                 value: 8,
-                message: "must be over 8."
+                message: "must be over 8.",
               },
               maxLength: {
                 value: 255,
-                message: "password too long"
+                message: "password too long",
               },
             })}
             id="password"
@@ -103,12 +104,14 @@ export function FirebaseSignUp() {
         </Field>
         <div className="flex gap-10">
           {/* {isValid ? */}
-          <Button
-          > Register </Button>
+          <Button> Register </Button>
         </div>
       </form>
-        <Link className="mt-5" to="/login" > Got Account? Login </Link>
-        <BackButton />
+      <Link className="mt-5" to="/login">
+        {" "}
+        Got Account? Login{" "}
+      </Link>
+      <BackButton />
       {/* </Form> */}
     </>
   );

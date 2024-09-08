@@ -7,15 +7,46 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // import { JobDescription } from "./components/draft/job-description.tsx";
 import { Response } from "./components/draft/response.tsx";
 // import { Login } from "./components/auth/login.tsx";
-import PublicIndex from "./routes/public/index.tsx";
+// import PublicIndex from "./routes/public/index.tsx";
 import PrivateIndex from "./routes/private/index.tsx";
-import PublicRoot from "./routes/public/root.tsx";
+import DrafterRoot from "./routes/drafter/root.tsx";
 import PrivateRoot from "./routes/private/root.tsx";
 import { Login, action as loginAction } from "./components/auth/login.tsx";
 import AuthProvider from "./apis/auth-provider.tsx";
-import { FirebaseSignUp, action as signupAction} from "./components/auth/register.tsx";
+import { FirebaseSignUp, action as signupAction } from "./components/auth/register.tsx";
+import Drafter from "./routes/drafter/index.tsx";
+import QRCodeGenerator, { action as qrAction } from "./routes/qr_code/index.tsx";
+import { PublicRoot } from "./routes/public/root.tsx";
 
 const router = createBrowserRouter([
+
+  {
+    path: "/",
+    element: <DrafterRoot />,
+    errorElement: <h1> Oops</h1>,
+    children: [
+
+      {
+        index: true,
+        element: <Drafter />,
+      },
+      {
+        path: "response",
+        element: <Response />,
+      },
+      {
+        path: "resume",
+        element: <Response />,
+      },
+
+    ],
+  },
+]);
+
+/**
+ *  The Utility Apps I am working on.
+ */
+const newRouter = createBrowserRouter([
   {
     path: "login",
     action: loginAction,
@@ -24,32 +55,44 @@ const router = createBrowserRouter([
   {
     path: "register",
     action: signupAction,
-    element: <FirebaseSignUp/>
+    element: <FirebaseSignUp />
   },
   {
-    // public route
     path: "/",
     element: <PublicRoot />,
+    errorElement: <h1> Oops</h1>
+  },
+  {
+    path: "/qr",
+    element: <QRCodeGenerator />,
+    errorElement: <h1> Oops</h1>,
+    action: qrAction,
+
+  },
+  {
+
+    // public route
+    path: "/drafter",
+    element: <DrafterRoot />,
     errorElement: <h1> Oops</h1>,
     children: [
-  
+
       {
         index: true,
-        element: <PublicIndex />,
+        element: <Drafter />,
       },
       {
-        path: "/response",
+        path: "response",
         element: <Response />,
       },
       {
-        path: "/resume",
+        path: "resume",
         element: <Response />,
       },
-    
+
     ],
   },
   {
-    // public route
     path: "/private",
     element: <PrivateRoot />,
     children: [
@@ -57,7 +100,7 @@ const router = createBrowserRouter([
         index: true,
         element: <PrivateIndex />,
       },
-   
+
     ],
   },
 ]);

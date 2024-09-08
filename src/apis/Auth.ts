@@ -9,8 +9,10 @@ export class Auth {
   }
 
   // firebase email password sign-in 
-  public async login(data: { username: string, password: string }): Promise<string | Error> {
-    return await signInWithEmailAndPassword(auth, data.username, data.password)
+  public async login(data: {username : string, password: string}): Promise<string | Error> {
+    const username = data.username;
+    const password = data.password;
+    return await signInWithEmailAndPassword(auth, username, password)
       .then(userCredential => {
         const user = userCredential.user;
         console.log({ user })
@@ -48,26 +50,26 @@ export class Auth {
   }
 
   // deprecated 
-  private async _login(body: FormData) {
-    const { username, password } = Object.fromEntries(body);
-    const resp = await fetch(this.#endpoint + "/token", {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    if (resp.status == 200 || resp.status == 201) {
-      const token = await resp.text();
-      localStorage.setItem('username', username.toString());
-      localStorage.setItem('token', token);
+  // private async _login(body: FormData) {
+  //   const { username, password } = Object.fromEntries(body);
+  //   const resp = await fetch(this.#endpoint + "/token", {
+  //     method: "POST",
+  //     body: JSON.stringify({ username, password }),
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }
+  //   })
+  //   if (resp.status == 200 || resp.status == 201) {
+  //     const token = await resp.text();
+  //     localStorage.setItem('username', username.toString());
+  //     localStorage.setItem('token', token);
 
-      return "success";
-    } else {
-      // throw new Error("Username or Password incorrect.")
-      return "failed";
-    }
-  }
+  //     return "success";
+  //   } else {
+  //     // throw new Error("Username or Password incorrect.")
+  //     return "failed";
+  //   }
+  // }
 
   public logout(): void {
     localStorage.removeItem("token")

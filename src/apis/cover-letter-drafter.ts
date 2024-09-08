@@ -18,7 +18,7 @@ export class CoverLetterDrafter {
   #body : FormData;
 
   constructor(body: FormData) {
-    this.#publicEndpoint = import.meta.env.VITE_BACKEND + "/public/cover_letter";
+    this.#publicEndpoint = import.meta.env.VITE_BACKEND + "/cover_letter";
     // this.#privateEndpoint = import.meta.env.VITE_BACKEND + "/private";
     this.#body = body;
 

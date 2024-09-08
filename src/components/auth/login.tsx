@@ -2,14 +2,14 @@ import { useForm } from "react-hook-form";
 import { Field } from "../common/fields";
 import { Input } from "../common/input";
 // import { Button } from "../common/button";
-import { Form, Link, redirect, useNavigate } from "react-router-dom";
+import { Link,  redirect,  useNavigate } from "react-router-dom";
 import { Auth } from "../../apis/auth";
-import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+// import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { auth } from "../../config/firebase";
-import { BackButton } from "../common/back-button";
+// import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+// import { auth } from "../../config/firebase";
+// import { BackButton } from "../common/back-button";
 import { Button } from "flowbite-react";
 
 type Inputs = {
@@ -21,7 +21,11 @@ type Inputs = {
 export async function action({ request }: { request: Request }) {
   const formData = await request.formData();
   const auth = new Auth();
-  const resp = await auth.login(formData);
+  
+  const username = formData.get("username") as string;
+  const password = formData.get("username") as string;
+  
+  const resp = await auth.login({username, password});
   console.log({ localStorage });
   if (resp === "success") {
     return redirect("/private");
@@ -44,9 +48,10 @@ export async function action({ request }: { request: Request }) {
   //   console.error(error);
   // }
 }
+
 /**
  * Login a user
- * TODO: 
+ * TODO:
  * 1. error message for failed login.
  */
 export function Login() {
@@ -58,11 +63,12 @@ export function Login() {
   } = useForm<Inputs>();
 
   async function onSubmit(data: Inputs) {
+
     const auth = new Auth();
     const resp = await auth.login(data);
     if (resp === "success") {
       console.log(resp);
-      const uid = localStorage.getItem("uid");
+      // const uid = localStorage.getItem("uid");
       navigate("/private");
     } else {
       console.log(resp);
@@ -74,9 +80,7 @@ export function Login() {
   return (
     <>
       {/* <Form id="login-form" role="auth" method="post"> */}
-      <form
-        className="flex flex-col  gap-5"
-        onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col  gap-5" onSubmit={handleSubmit(onSubmit)}>
         <Field
           label="Email"
           labelClass={labelStyle}
@@ -113,11 +117,17 @@ export function Login() {
           />
         </Field>
         <div className="flex gap-10 self-center">
-        <Button color="red"  onClick={() =>navigate(-1)}> Back </Button>
-          <Button type="submit" >Login</Button>
+          <Button color="red" onClick={() => navigate(-1)}>
+            {" "}
+            Back{" "}
+          </Button>
+          <Button type="submit">Login</Button>
         </div>
       </form>
-        <Link className="mt-5" to="/register" > No Account? Register </Link>
+      <Link className="mt-5" to="/register">
+        {" "}
+        No Account? Register{" "}
+      </Link>
       <ToastContainer position="top-center" />
     </>
   );

@@ -3,40 +3,38 @@
  * and the Company, Job title, Job Description
  * all in 1 page.
  * --------------------
- * 
+ *
  * Functionality update, we need to generate resume as well.
  *
  * */
 
+import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
-import { UploadIcon } from "../../assets/upload-icon";
-import { useState } from "react";
-import { IForm } from "../../types/interfaces";
-import { Field } from "../../components/common/fields";
-import { Input } from "../../components/common/input";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../components/common/button";
-import { Spinner } from "../../components/common/spinner";
-import { Textarea } from "../../components/common/textarea";
-import { CoverLetterDrafter } from "../../apis/cover-letter-drafter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ToggleSwitch } from "flowbite-react";
-import { sortUserPlugins } from "vite";
+import { CoverLetterDrafter } from "../../apis/cover-letter-drafter";
+import { UploadIcon } from "../../assets/upload-icon";
+import { Button } from "../../components/common/button";
+import { Field } from "../../components/common/fields";
+import { Input } from "../../components/common/input";
+import { Spinner } from "../../components/common/spinner";
+import { Textarea } from "../../components/common/textarea";
+import { IForm } from "../../types/interfaces";
 
 /**
  * First part is the file upload:
- * 
+ *
  * FileUploader handles resume in PDF and DOCX
  * only accepting 1 file at a time
  * button will be disabled if the no file was uploaded.
  *
  *  Basic usage of the file dropzone
  *  reference https://react-dropzone.js.org/#section-basic-example
- * 
+ *
  * Second part takes the job details:
- * 
+ *
  * Job Description takes company, job title, and description of the job
  * all input field must be filled in
  * validating for empty input field with React-hook-from register function.
@@ -47,7 +45,7 @@ import { sortUserPlugins } from "vite";
  * @returns React Component
  */
 
-export default function PublicIndex() {
+export default function Drafter() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, setState] = useState<IForm>({
     company: "",
@@ -55,7 +53,7 @@ export default function PublicIndex() {
     description: "",
     resume: null,
   });
-const [toggle, setToggle] = useState(false);
+  // const [toggle, setToggle] = useState(false);
 
   const {
     register,
@@ -77,7 +75,7 @@ const [toggle, setToggle] = useState(false);
     },
     onDrop: (files) => {
       setValue("resume", files[0]);
-      setState({ ...state, resume: files[0]})
+      setState({ ...state, resume: files[0] });
     },
     maxFiles: 1,
   });
@@ -95,21 +93,21 @@ const [toggle, setToggle] = useState(false);
         error: "Something went, please try again",
       });
       if (typeof result == "string") {
-        navigate("/response", { state: { result, data: { ...state } } });
+        navigate("/drafter/response", { state: { result, data: { ...state } } });
       }
     } catch (error) {
       console.error(error);
     }
   }
 
-  async function genResume(data: IForm) {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => formData.set(key, value));
-    console.log( {data});
-  }
+  // async function genResume(data: IForm) {
+  //   const formData = new FormData();
+  //   Object.entries(data).forEach(([key, value]) => formData.set(key, value));
+  //   console.log( {data});
+  // }
 
   const labelStyle =
-    "flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4 ";
+    "text-center flex flex-col text-xl font-semibold underline my-2 decoration-blue-200 decoration-4 ";
 
   return (
     <form
@@ -119,8 +117,9 @@ const [toggle, setToggle] = useState(false);
     >
       <div className="flex flex-col md:col-start-1 md:col-end-6 sm:mx-5">
         <label
-          className="block my-10 text-xl font-semibold underline decoration-green-300 decoration-4"
+          className="text-center block my-10 text-xl font-semibold underline decoration-green-300 decoration-4"
           htmlFor="resume"
+
         >
           Upload Your Resume
         </label>
@@ -128,7 +127,7 @@ const [toggle, setToggle] = useState(false);
         <div
           {...getRootProps({
             className:
-              "rounded-lg border-dotted border-[2px] hover:border-dotted hover:border-blue-400 hover:ring-blue-200 hover:ring-2 hover:shadow-lg hover:shadow-blue-200 ease-in-out duration-300 flex flex-col justify-center items-center sm:h-24 md:min-h-72",
+              "rounded-lg border-dotted border-[2px] hover:border-dotted hover:border-blue-400 hover:ring-blue-200 hover:ring-2 hover:shadow-lg hover:shadow-blue-200 ease-in-out duration-300 flex flex-col justify-center items-center sm:h-24 md:min-h-72 dark:bg-slate-800 bg-slate-100",
           })}
         >
           <>
@@ -202,9 +201,9 @@ const [toggle, setToggle] = useState(false);
             <Spinner />
           ) : (
             <>
-               {/* <ToggleSwitch checked={toggle} label="Toggle to Pick" onChange={setToggle} /> */}
+              {/* <ToggleSwitch checked={toggle} label="Toggle to Pick" onChange={setToggle} /> */}
               {/* <Button> { toggle?  "Cover Letter!" : "Resume"}</Button> */}
-              <Button> { "Generate Cover Letter"}</Button>
+              <Button type="submit"> {"Generate Cover Letter"}</Button>
             </>
           )}
         </div>
