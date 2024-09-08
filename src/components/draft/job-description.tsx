@@ -1,18 +1,19 @@
-import { useAppState } from "../util/state";
+import { useAppState } from "../../util/state";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { Field } from "./form/fields";
-import { Input } from "./form/input";
-import { Form } from "./form/form";
-import { Textarea } from "./form/textarea";
-import { Button } from "./form/button";
+import { useNavigate } from "react-router-dom";
+import { Field } from "../common/fields";
+import { Input } from "../common/input";
+import { Form } from "../common/form";
+import { Textarea } from "../common/textarea";
+import { Button } from "../common/button";
 import { useState } from "react";
-import { Drafter } from "../apis/Drafter";
-import { Form as FormType } from "../types/interfaces";
-import { Spinner } from "./spinner";
+import { CoverLetterDrafter} from "../../apis/cover-letter-drafter";
+import { IForm } from "../../types/interfaces";
+import { Spinner } from "../common/spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 /**
+ * @deprecated
  * Job Description takes company, job title, and description of the job
  * all input field must be filled in
  * validating for empty input field with React-hook-from register function.
@@ -21,9 +22,13 @@ import "react-toastify/dist/ReactToastify.css";
  * Implementing validation reference
  * @link https://claritydev.net/blog/form-validation-react-hook-form
  * @returns React Component
+ * @deprecated
  */
 export function JobDescription() {
   const [submitting, setSubmitting] = useState(false);
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
   const [state, setState] = useAppState();
 
   const {
@@ -32,9 +37,8 @@ export function JobDescription() {
     formState: { errors },
   } = useForm({ defaultValues: state });
   const navigate = useNavigate();
- 
 
-  async function saveData(data: FormType) {
+  async function saveData(data: IForm) {
     setState({ ...state, ...data });
     const body = new FormData();
     body.append("company", data.company);
@@ -43,7 +47,7 @@ export function JobDescription() {
     body.append("resume", data.resume!);
 
     setSubmitting(true);
-    const drafter = new Drafter(body);
+    const drafter = new CoverLetterDrafter(body);
     try {
       const result = await toast.promise(drafter.publicPost(), {
         pending: "we are working on it!",
@@ -75,10 +79,10 @@ export function JobDescription() {
               value: 1,
               message: "Company name must be at least 1 characters long",
             },
-            // onChange: (e) => { 
+            // onChange: (e) => {
             //   setState({ ...state, ...e.target.value})
             //   console.log(state)
-            // } 
+            // }
           })}
           id="company"
           disabled={submitting}
@@ -124,9 +128,9 @@ export function JobDescription() {
           <Spinner />
         ) : (
           <>
-            <Link className={`btn btn-secondary`} to="/">
+            {/* <Link className={`btn btn-secondary`} to="/">
               {"Back"}
-            </Link>
+            </Link> */}
             <Button> {"Generate!"}</Button>
           </>
         )}

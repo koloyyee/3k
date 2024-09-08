@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppProvider } from "./util/state";
-import { FileUploader } from "./components/file-uploader";
-import { JobDescription } from "./components/job-description";
-import { Response } from "./components/response";
+import { FileUploader } from "./components/draft/file-uploader";
+import { JobDescription } from "./components/draft/job-description";
+import { Response } from "./components/draft/response";
+import { Login } from "./components/auth/login";
 
 export const App = () => {
   return (
@@ -20,6 +21,7 @@ export const App = () => {
             <Route path="/" element={<FileUploader />} />
             <Route path="/job_description" element={<JobDescription/>} />
             <Route path="/response" element={<Response/>} />
+            <Route path="/login" element={<Login/>} />
           </Routes>
         </Router>
       </AppProvider>

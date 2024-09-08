@@ -10,8 +10,8 @@ export function AppProvider({ children }: {children: ReactNode}) {
     </AppStateContext.Provider>
   );
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useAppState(): any{
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, react-refresh/only-export-components
+export function useAppState(){
   const context = useContext(AppStateContext);
   if (!context) {
     throw new Error("useAppState must be used within the AppProvider");
