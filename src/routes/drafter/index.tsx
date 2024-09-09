@@ -93,7 +93,7 @@ export default function Drafter() {
         error: "Something went, please try again",
       });
       if (typeof result == "string") {
-        navigate("/drafter/response", { state: { result, data: { ...state } } });
+        navigate("/response", { state: { result, data: { ...state } } });
       }
     } catch (error) {
       console.error(error);
